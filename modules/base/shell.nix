@@ -51,15 +51,11 @@
               nix fmt -- -q ${path}
               and ${lib.getExe pkgs.nh} os switch ${path} -- $argv
               and begin
-                set -l curr_br (git -C ${path} branch --show-current)
                 git -C ${path} checkout -B staging
                 git -C ${path} add .
                 git -C ${path} commit -m "successful build: (date)" --allow-empty
-
                 echo -e "\n--- Changes Committed ---"
                 git -C ${path} diff HEAD^ HEAD --stat
-
-                git -C ${path} checkout $curr_br
               end
             '';
           };
