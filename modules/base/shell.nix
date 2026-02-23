@@ -70,18 +70,10 @@
         shellAliases = let
           commitAndDiff = ''
             f() {
-              if git -C ${path} rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-                local curr_br=$(git -C ${path} branch --show-current);
-
-                git -C ${path} checkout -B staging && \
+                git -c ${path} checkout staging
                 git -C ${path} add . && \
                 git -C ${path} commit -m "successful build: $(date)" --allow-empty && \
-
-                echo -e "\n--- Commit Summary ---";
                 git -C ${path} diff HEAD^ HEAD --stat && \
-
-                git -C ${path} checkout "$curr_br";
-              fi
             }; f
           '';
           path = "/home/gradyb/etc/nixos/";
