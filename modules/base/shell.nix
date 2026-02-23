@@ -68,14 +68,30 @@
         };
 
         shellAliases = let
+          commitAndDiff = ''
+            f() {
+              if git -C ${path} rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+                local curr_br=$(git -C ${path} branch --show-current);
+
+                git -C ${path} checkout -B staging && \
+                git -C ${path} add . && \
+                git -C ${path} commit -m "successful build: $(date)" --allow-empty && \
+
+                echo -e "\n--- Commit Summary ---";
+                git -C ${path} diff HEAD^ HEAD --stat && \
+
+                git -C ${path} checkout "$curr_br";
+              fi
+            }; f
+          '';
           path = "/home/gradyb/etc/nixos/";
         in {
           vi = "nvim";
           vim = "nvim";
           enc = "nvim /${path} ";
           cnc = "cd /${path}";
-          nrs = "nix fmt  -- -q /${path}; ${lib.getExe pkgs.nh} os switch $argv";
-          nru = "nix fmt  -- -q /${path}; ${lib.getExe pkgs.nh} os switch --update ";
+          nrs = "nix fmt -- -q ${path} && ${lib.getExe pkgs.nh} os switch ${path} -- $argv && ${commitAndDiff}";
+          nru = "nix fmt -- -q ${path} && ${lib.getExe pkgs.nh} os switch ${path} --update -- $argv && ${commitAndDiff}";
         };
       };
       starship = with config.lib.stylix.colors.withHashtag; let
