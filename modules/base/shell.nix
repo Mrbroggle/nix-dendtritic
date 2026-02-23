@@ -44,6 +44,31 @@
         functions = {
           clangComp = "clang++ $argv -g -o $(path basename -E $argv)";
           gccComp = "g++ $argv -g -o $(path basename -E $argv)";
+          nrs = let
+            path = "/home/gradyb/etc/nixos/";
+          in {
+            body = ''
+              nix fmt -- -q ${path}
+              and ${lib.getExe pkgs.nh} os switch ${path} -- $argv
+              and begin
+                set -l curr_br (git -C ${path} branch --show-current)
+                git -C ${path} checkout -B staging
+                git -C ${path} add .
+                git -C ${path} commit -m "successful build: (date)" --allow-empty
+
+                echo -e "\n--- Changes Committed ---"
+                git -C ${path} diff HEAD^ HEAD --stat
+
+                git -C ${path} checkout $curr_br
+              end
+            '';
+          };
+
+          nru = {
+            body = ''
+              nrs --update $argv
+            '';
+          };
         };
         binds = {
         };
@@ -68,22 +93,12 @@
         };
 
         shellAliases = let
-          commitAndDiff = ''
-            f() {
-                git -c ${path} checkout staging
-                git -C ${path} add . && \
-                git -C ${path} commit -m "successful build: $(date)" --allow-empty && \
-                git -C ${path} diff HEAD^ HEAD --stat && \
-            }; f
-          '';
           path = "/home/gradyb/etc/nixos/";
         in {
           vi = "nvim";
           vim = "nvim";
           enc = "nvim /${path} ";
           cnc = "cd /${path}";
-          nrs = "nix fmt -- -q ${path} && ${lib.getExe pkgs.nh} os switch ${path} -- $argv && ${commitAndDiff}";
-          nru = "nix fmt -- -q ${path} && ${lib.getExe pkgs.nh} os switch ${path} --update -- $argv && ${commitAndDiff}";
         };
       };
       starship = with config.lib.stylix.colors.withHashtag; let
