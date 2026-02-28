@@ -20,8 +20,7 @@
         };
 
         services.displayManager = {
-          defaultSession = "hyprland";
-          sessionPackages = [pkgs.hyprland];
+          defaultSession = "hyprland-uwsm";
         };
         programs = {
           uwsm = {
@@ -29,7 +28,7 @@
             waylandCompositors = {
               hyprland = {
                 prettyName = "Hyprland";
-                comment = "Hyprland compositor managed by UWSM";
+                comment = "Hyprland managed by UWSM";
                 binPath = "/run/current-system/sw/bin/Hyprland";
               };
             };
@@ -43,7 +42,6 @@
             clipse
             hyprlock
             hyprpolkitagent
-            shikane
           ];
           sessionVariables = {
             NIXOS_WAYLAND = "1";
@@ -95,13 +93,17 @@
           settings = {
             exec-once = [
               "systemctl --user start hyprpolkitagent"
-              "${pkgs.hyprpaper}"
-              "${pkgs.udiskie}"
-              "nm-applet"
-              "clipse -listen"
+              "uwsm-app ${pkgs.hyprpaper}"
+              "uwsm-app ${pkgs.udiskie}"
+              "uwsm-app nm-applet"
+              "uwsm-app clipse -listen"
               "[workspace 1 silent] ghostty"
-              "${pkgs.tailscale-systray}/bin/tailscale-systray"
+              "uwsm-app ${pkgs.tailscale-systray}/bin/tailscale-systray"
             ];
+
+            general = {
+              layout = "scrolling";
+            };
 
             misc = {
               force_default_wallpaper = "1"; # Set to 0 or 1 to disable the anime mascot wallpapers
@@ -117,6 +119,11 @@
               "match:class com.savedra1.clipse, stay_focused on"
             ];
           };
+
+          plugins = [
+            pkgs.hyprlandPlugins.hyprscrolling
+            pkgs.hyprlandPlugins.hyprsplit
+          ];
         };
       };
     };

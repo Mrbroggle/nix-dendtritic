@@ -49,7 +49,7 @@
           in {
             body = ''
               nix fmt -- -q ${path}
-              and ${lib.getExe pkgs.nh} os switch ${path} -- $argv
+              and ${lib.getExe pkgs.nh} os switch ${path} $argv
               and begin
                 git -C ${path} checkout -B staging
                 git -C ${path} add .

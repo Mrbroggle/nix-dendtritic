@@ -10,8 +10,6 @@
         resize_on_border = false;
 
         allow_tearing = true;
-
-        layout = "dwindle";
       };
 
       decoration = {
