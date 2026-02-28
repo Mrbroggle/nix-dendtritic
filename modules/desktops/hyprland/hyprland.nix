@@ -106,10 +106,6 @@
               "uwsm-app ${pkgs.tailscale-systray}/bin/tailscale-systray"
             ];
 
-            general = {
-              layout = "scrolling";
-            };
-
             plugin = {
               hyprscrolling = {
                 column_width = "0.667";
