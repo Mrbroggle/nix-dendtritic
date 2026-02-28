@@ -44,18 +44,19 @@
         functions = {
           clangComp = "clang++ $argv -g -o $(path basename -E $argv)";
           gccComp = "g++ $argv -g -o $(path basename -E $argv)";
-          nrs = let
-            path = "/home/gradyb/etc/nixos/";
-          in {
-            body = ''
+          nrs = {
+            body = let
+              path = "/home/gradyb/etc/nixos/";
+              nh = lib.getExe pkgs.nh;
+            in ''
+              # Format and switch
               nix fmt -- -q ${path}
-              and ${lib.getExe pkgs.nh} os switch ${path} $argv
+              and ${nh} os switch ${path} $argv
               and begin
-                git -C ${path} checkout -B staging
-                git -C ${path} add .
-                git -C ${path} commit -m "successful build: (date)" --allow-empty
-                echo -e "\n--- Changes Committed ---"
-                git -C ${path} diff HEAD^ HEAD --stat
+                set -l g git -C ${path}
+                $g add .
+                $g commit -m "successful build: $(date +'%Y-%m-%d %H:%M')" --allow-empty
+                $g diff HEAD^ HEAD --stat
               end
             '';
           };
