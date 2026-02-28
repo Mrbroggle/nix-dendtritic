@@ -44,28 +44,6 @@
         functions = {
           clangComp = "clang++ $argv -g -o $(path basename -E $argv)";
           gccComp = "g++ $argv -g -o $(path basename -E $argv)";
-          nrs = {
-            body = let
-              path = "/home/gradyb/etc/nixos/";
-              nh = lib.getExe pkgs.nh;
-            in ''
-              # Format and switch
-              nix fmt -- -q ${path}
-              and ${nh} os switch ${path} $argv
-              and begin
-                set -l g git -C ${path}
-                $g add .
-                $g commit -m "successful build: $(date +'%Y-%m-%d %H:%M')" --allow-empty
-                $g diff HEAD^ HEAD --stat
-              end
-            '';
-          };
-
-          nru = {
-            body = ''
-              nrs --update $argv
-            '';
-          };
         };
         binds = {
         };
@@ -91,11 +69,14 @@
 
         shellAliases = let
           path = "/home/gradyb/etc/nixos/";
+          g = "git -C ${path}";
         in {
           vi = "nvim";
           vim = "nvim";
           enc = "nvim /${path} ";
           cnc = "cd /${path}";
+          nrs = "cd ${path} && nix fmt -- . && cd - && ${lib.getExe pkgs.nh} os switch ${path} && ${g} add . && ${g} commit -m \"successful build: (date)\" --allow-empty &&  ${g} diff HEAD^ HEAD --stat &&";
+          nfu = "nix flake update --flake ${path}/";
         };
       };
       starship = with config.lib.stylix.colors.withHashtag; let

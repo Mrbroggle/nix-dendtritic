@@ -23,6 +23,10 @@
           defaultSession = "hyprland-uwsm";
         };
         programs = {
+          hyprland = {
+            enable = true;
+            withUWSM = true;
+          };
           uwsm = {
             enable = true;
             waylandCompositors = {
@@ -90,6 +94,7 @@
 
         wayland.windowManager.hyprland = {
           enable = true;
+          systemd.enable = false;
           settings = {
             exec-once = [
               "systemctl --user start hyprpolkitagent"
@@ -103,6 +108,13 @@
 
             general = {
               layout = "scrolling";
+            };
+
+            plugin = {
+              hyprscrolling = {
+                column_width = "0.75";
+                fullscreen_on_one_column = true;
+              };
             };
 
             misc = {
