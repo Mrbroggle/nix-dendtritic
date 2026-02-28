@@ -45,7 +45,7 @@
           {
             profile = {
               name = "Undocked";
-              exec = "notify-send -t 10000 Kanshi 'Swaped to Undocked Config'";
+              exec = "hyprctl dispatch split:grabroguewindows; notify-send -t 10000 Kanshi 'Swaped to Undocked Config'";
               outputs = [
                 {
                   criteria = "eDP-1";
@@ -60,7 +60,7 @@
           {
             profile = {
               name = "Docked";
-              exec = "notify-send -t 10000 Kanshi 'Swaped to Docked Config'";
+              exec = "hyprctl dispatch split:grabroguewindows; notify-send -t 10000 Kanshi 'Swaped to Docked Config'";
               outputs = [
                 {
                   criteria = "Lenovo Group Limited G24-20 U533B517";
