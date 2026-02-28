@@ -88,13 +88,17 @@
           settings = {
             exec-once = [
               "systemctl --user start hyprpolkitagent"
-              "${pkgs.hyprpaper}"
-              "${pkgs.udiskie}"
-              "nm-applet"
-              "clipse -listen"
+              "uwsm-app ${pkgs.hyprpaper}"
+              "uwsm-app ${pkgs.udiskie}"
+              "uwsm-app nm-applet"
+              "uwsm-app clipse -listen"
               "[workspace 1 silent] ghostty"
-              "${pkgs.tailscale-systray}/bin/tailscale-systray"
+              "uwsm-app ${pkgs.tailscale-systray}/bin/tailscale-systray"
             ];
+
+            general = {
+              layout = "scrolling";
+            };
 
             plugin = {
               hyprscrolling = {
