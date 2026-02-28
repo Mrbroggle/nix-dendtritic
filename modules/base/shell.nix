@@ -75,7 +75,7 @@
           vim = "nvim";
           enc = "nvim /${path} ";
           cnc = "cd /${path}";
-          nrs = "cd ${path} && nix fmt -- . && cd - && ${lib.getExe pkgs.nh} os switch ${path} && ${g} add . && ${g} commit -m \"successful build: (date)\" --allow-empty &&  ${g} diff HEAD^ HEAD --stat";
+          nrs = "cd ${path} && nix fmt -- . && cd - && ${lib.getExe pkgs.nh} os switch ${path} && ${g} add . && ${g} commit -m \"successful build: (date)\" &&  ${g} diff HEAD^ HEAD --stat";
           nfu = "nix flake update --flake ${path}/";
         };
       };
