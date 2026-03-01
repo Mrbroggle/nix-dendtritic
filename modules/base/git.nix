@@ -8,6 +8,8 @@
           email = "broggl@broggl.farm";
         };
         init.defaultBranch = "master";
+
+        push = {autoSetupRemote = true;};
       };
     };
   };
