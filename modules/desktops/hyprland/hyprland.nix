@@ -20,22 +20,11 @@
         };
 
         services.displayManager = {
-          defaultSession = "hyprland-uwsm";
+          defaultSession = "hyprland";
         };
         programs = {
           hyprland = {
             enable = true;
-            withUWSM = true;
-          };
-          uwsm = {
-            enable = true;
-            waylandCompositors = {
-              hyprland = {
-                prettyName = "Hyprland";
-                comment = "Hyprland managed by UWSM";
-                binPath = "/run/current-system/sw/bin/Hyprland";
-              };
-            };
           };
         };
 
@@ -98,12 +87,12 @@
           settings = {
             exec-once = [
               "systemctl --user start hyprpolkitagent"
-              "uwsm-app ${pkgs.hyprpaper}"
-              "uwsm-app ${pkgs.udiskie}"
-              "uwsm-app nm-applet"
-              "uwsm-app clipse -listen"
+              "${pkgs.hyprpaper}"
+              "${pkgs.udiskie}"
+              "nm-applet"
+              "clipse -listen"
               "[workspace 1 silent] ghostty"
-              "uwsm-app ${pkgs.tailscale-systray}/bin/tailscale-systray"
+              "${pkgs.tailscale-systray}/bin/tailscale-systray"
             ];
 
             plugin = {

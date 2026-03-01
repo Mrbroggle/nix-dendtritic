@@ -28,6 +28,7 @@
         browsers
         display
         keyboard
+        audio
       ]
       ++ [
         {

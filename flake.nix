@@ -10,6 +10,7 @@
     ];
   };
   description = "Broggle's Dendritic nix config";
+
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 
   inputs = {
