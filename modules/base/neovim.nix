@@ -33,7 +33,13 @@
             installDependencies = true;
             installRuntimeDependencies = true;
           };
-          copilot-chat = {
+          copilot_native = {
+            enable = true;
+            installDependencies = true;
+            installRuntimeDependencies = true;
+          };
+
+          copilot_chat = {
             enable = true;
             installDependencies = true;
             installRuntimeDependencies = true;
