@@ -17,6 +17,7 @@
     imports = with config.flake.nixosModules;
       [
         inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+        secrets
         base
         secureBootLoader
         tailscale

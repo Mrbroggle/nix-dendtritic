@@ -1,8 +1,13 @@
 {
-  flake.nixosModules.base = {pkgs, ...}: {
+  flake.nixosModules.base = {
+    config,
+    pkgs,
+    ...
+  }: {
     programs.fish.enable = true;
     users.users.gradyb = {
       isNormalUser = true;
+      hashedPasswordFile = config.sops.secrets.password.path;
       description = "grady brown";
       extraGroups = [
         "networkmanager"
