@@ -27,6 +27,18 @@
             installRuntimeDependencies = true;
           };
         };
+        ai = {
+          copilot = {
+            enable = true;
+            installDependencies = true;
+            installRuntimeDependencies = true;
+          };
+          copilot-chat = {
+            enable = true;
+            installDependencies = true;
+            installRuntimeDependencies = true;
+          };
+        };
       };
       extraPackages = with pkgs; [
         nixd # Nix LSP
