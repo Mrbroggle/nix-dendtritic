@@ -36,6 +36,11 @@
             installDependencies = true;
             installRuntimeDependencies = true;
           };
+          typescript = {
+            enable = true;
+            installDependencies = true;
+            installRuntimeDependencies = true;
+          };
         };
         ai = {
           copilot = {
@@ -48,7 +53,6 @@
             installDependencies = true;
             installRuntimeDependencies = true;
           };
-
           copilot_chat = {
             enable = true;
             installDependencies = true;
@@ -59,6 +63,9 @@
       extraPackages = with pkgs; [
         nixd # Nix LSP
         alejandra # Nix formatter
+        svelte-language-server
+        tailwindcss
+        typescript-language-server
         nixfmt
         statix
       ];
