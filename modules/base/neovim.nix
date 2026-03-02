@@ -26,6 +26,16 @@
             installDependencies = true;
             installRuntimeDependencies = true;
           };
+          svelte = {
+            enable = true;
+            installDependencies = true;
+            installRuntimeDependencies = true;
+          };
+          tailwind = {
+            enable = true;
+            installDependencies = true;
+            installRuntimeDependencies = true;
+          };
         };
         ai = {
           copilot = {
