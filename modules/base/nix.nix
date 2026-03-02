@@ -14,7 +14,11 @@
     formatter = pkgs.alejandra;
   };
 
-  flake.nixosModules.base = _: {
+  flake.nixosModules.base = {
+    config,
+    username,
+    ...
+  }: {
     imports = [
       inputs.determinate.nixosModules.default
     ];
@@ -48,7 +52,7 @@
         enable = true;
         extraArgs = "--keep 5";
       };
-      flake = "/home/gradyb/etc/nixos/";
+      flake = "/home/${username}/etc/nixos/";
     };
     #  system.copySystemConfiguration = true;
 

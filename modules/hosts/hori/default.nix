@@ -3,12 +3,14 @@
   config,
   self,
   ...
-}: {
+}: let
+  username = "gradyb";
+in {
   flake.nixosConfigurations.hori = inputs.nixpkgs.lib.nixosSystem {
     modules = [
       inputs.home-manager.nixosModules.home-manager
       config.flake.nixosModules.hostHori
-      {_module.args = {inherit self;};}
+      {_module.args = {inherit username self;};}
     ];
   };
   flake.nixosModules.hostHori = {pkgs, ...}: {
@@ -26,6 +28,7 @@
         hyprlandLaptop
         stylix
         appSuite
+        chat
         browsers
         display
         keyboard
@@ -33,12 +36,10 @@
       ]
       ++ [
         {
-          home-manager.users.gradyb.imports = with config.flake.homeModules; [
+          home-manager.users.${username}.imports = with config.flake.homeModules; [
             base
-            stylix
             shell
             neovim
-            appSuite
           ];
         }
       ];

@@ -1,9 +1,14 @@
 {
   styles,
   inputs,
+  config,
   ...
 }: {
-  flake.nixosModules.stylix = {pkgs, ...}: let
+  flake.nixosModules.stylix = {
+    pkgs,
+    username,
+    ...
+  }: let
     style = styles pkgs;
   in {
     imports = [
@@ -26,6 +31,10 @@
       homeManagerIntegration.autoImport = true;
       homeManagerIntegration.followSystem = true;
     };
+
+    home-manager.users.${username}.imports = [
+      config.flake.homeModules.stylix
+    ];
   };
 
   flake.homeModules.stylix = {

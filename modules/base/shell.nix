@@ -1,8 +1,8 @@
 {
   flake.homeModules.shell = {
+    config,
     pkgs,
     lib,
-    config,
     ...
   }: let
     fishPlugs = [
@@ -68,7 +68,7 @@
         };
 
         shellAliases = let
-          path = "/home/gradyb/etc/nixos/";
+          path = "${config.home.homeDirectory}/etc/nixos/";
           g = "git -C ${path}";
         in {
           vi = "nvim";

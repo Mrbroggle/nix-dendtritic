@@ -1,12 +1,16 @@
 {config, ...}: {
   flake = {
     nixosModules = {
-      hyprland = {pkgs, ...}: {
+      hyprland = {
+        pkgs,
+        username,
+        ...
+      }: {
         imports = with config.flake.nixosModules; [
           sddm
         ];
 
-        home-manager.users.gradyb.imports = with config.flake.homeModules; [
+        home-manager.users.${username}.imports = with config.flake.homeModules; [
           swaync
           waybar
           wlogout
@@ -43,21 +47,21 @@
         };
       };
 
-      hyprlandLaptop = _: {
+      hyprlandLaptop = {username, ...}: {
         imports = [
           config.flake.nixosModules.hyprland
           {
-            home-manager.users.gradyb.imports = [
+            home-manager.users.${username}.imports = [
               config.flake.homeModules.hyprlandLaptop
             ];
           }
         ];
       };
-      hyprlandPC = _: {
+      hyprlandPC = {username, ...}: {
         imports = [
           config.flake.nixosModules.hyprland
           {
-            home-manager.users.gradyb.imports = [
+            home-manager.users.${username}.imports = [
               config.flake.homeModules.hyprlandPc
             ];
           }

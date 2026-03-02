@@ -2,13 +2,13 @@
   flake.nixosModules.base = {
     config,
     pkgs,
+    username,
     ...
   }: {
     programs.fish.enable = true;
-    users.users.gradyb = {
+    users.users.${username} = {
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets.password.path;
-      description = "grady brown";
       extraGroups = [
         "networkmanager"
         "wheel"
@@ -22,9 +22,9 @@
       shell = pkgs.fish;
     };
   };
-  flake.homeModules.user = _: {
+  flake.homeModules.user = {username, ...}: {
     home = {
-      username = "gradyb";
+      inherit username;
       stateVersion = "25.05";
     };
   };

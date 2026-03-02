@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.sddm = {pkgs, ...}: {
+  flake.nixosModules.sddm = {
+    pkgs,
+    username,
+    ...
+  }: {
     services = {
       xserver.enable = true;
       displayManager = {
@@ -9,7 +13,7 @@
           theme = "sddm-astronaut-theme";
           settings = {
             Autologin = {
-              # User = "gradyb";
+              # User = username;
             };
           };
         };

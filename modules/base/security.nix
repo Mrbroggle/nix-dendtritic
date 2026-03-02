@@ -2,6 +2,7 @@
   flake.nixosModules.base = {
     pkgs,
     lib,
+    username,
     ...
   }: {
     security = {
@@ -9,7 +10,7 @@
         enable = true;
         extraRules = [
           {
-            users = ["gradyb"];
+            users = [username];
             keepEnv = true;
             persist = true;
           }
@@ -17,7 +18,7 @@
       };
       sudo.extraRules = [
         {
-          users = ["gradyb"];
+          users = [username];
           commands = [
             {
               command = "ALL";
@@ -77,7 +78,7 @@
     };
     nix.settings.trusted-users = [
       "root"
-      "gradyb"
+      username
     ];
     /*
     systemd.services.fprintd = {

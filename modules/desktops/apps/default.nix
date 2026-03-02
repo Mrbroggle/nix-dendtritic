@@ -1,14 +1,15 @@
-{inputs, ...}: {
-  flake.homeModules.appSuite = {pkgs, ...}: {
-    imports = [
-      inputs.nixcord.homeModules.nixcord
-    ];
+{
+  inputs,
+  username,
+  ...
+}: {
+  flake.homeModules.appSuite = {
+    config,
+    pkgs,
+    ...
+  }: {
     home.packages = with pkgs; [prismlauncher];
     programs = {
-      nixcord = {
-        enable = true;
-        vesktop.enable = true;
-      };
       ghostty = {
         enable = true;
         enableFishIntegration = true;
@@ -18,6 +19,10 @@
         };
       };
     };
+
+    home-manager.users.${username}.imports = [
+      config.flake.homeModules.appSuite
+    ];
   };
   flake.nixosModules.appSuite = {pkgs, ...}: {
     imports = [
