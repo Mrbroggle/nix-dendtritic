@@ -1,30 +1,13 @@
 {
   inputs,
-  username,
+  config,
   ...
 }: {
-  flake.homeModules.appSuite = {
-    config,
+  flake.nixosModules.appSuite = {
     pkgs,
+    username,
     ...
   }: {
-    home.packages = with pkgs; [prismlauncher];
-    programs = {
-      ghostty = {
-        enable = true;
-        enableFishIntegration = true;
-        settings = {
-          font-family = "FiraCode Nerd Font Bold";
-          confirm-close-surface = false;
-        };
-      };
-    };
-
-    home-manager.users.${username}.imports = [
-      config.flake.homeModules.appSuite
-    ];
-  };
-  flake.nixosModules.appSuite = {pkgs, ...}: {
     imports = [
       inputs.spicetify-nix.nixosModules.default
     ];
@@ -73,6 +56,28 @@
         enabledSnippets = with spicePkgs.snippets; [
           pointer
         ];
+      };
+    };
+
+    home-manager.users.${username}.imports = [
+      config.flake.homeModules.appSuite
+    ];
+  };
+
+  flake.homeModules.appSuite = {
+    config,
+    pkgs,
+    ...
+  }: {
+    home.packages = with pkgs; [prismlauncher];
+    programs = {
+      ghostty = {
+        enable = true;
+        enableFishIntegration = true;
+        settings = {
+          font-family = "FiraCode Nerd Font Bold";
+          confirm-close-surface = false;
+        };
       };
     };
   };
