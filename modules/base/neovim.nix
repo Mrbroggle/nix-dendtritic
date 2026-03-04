@@ -110,7 +110,7 @@
                 opts = {
                   colorscheme = "mini.base16",
                 },
-              }
+              },
             }
           }
         '';
