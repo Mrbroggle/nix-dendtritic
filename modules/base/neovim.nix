@@ -9,6 +9,9 @@
     home.packages = with pkgs; [
       neovide
     ];
+    home.sessionVariables = {
+      EDITOR = "nvim";
+    };
     programs.lazyvim = {
       enable = true;
 
