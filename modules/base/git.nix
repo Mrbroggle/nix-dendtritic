@@ -15,6 +15,4 @@
       };
     };
   };
-  flake.homeModules.base = {osConfig, ...}: {
-  };
 }

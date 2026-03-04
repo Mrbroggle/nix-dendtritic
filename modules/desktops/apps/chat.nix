@@ -9,7 +9,6 @@
     ...
   }: {
     environment.systemPackages = with pkgs; [
-      cinny
       altus
     ];
     home-manager.users.${username}.imports = [

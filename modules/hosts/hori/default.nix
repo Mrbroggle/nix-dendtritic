@@ -33,6 +33,7 @@ in {
         display
         keyboard
         audio
+        virtualisation
       ]
       ++ [
         {

@@ -1,16 +1,12 @@
 {config, ...}: {
   flake = {
     nixosModules = {
-      hyprland = {
-        pkgs,
-        username,
-        ...
-      }: {
+      hyprland = {pkgs, ...}: {
         imports = with config.flake.nixosModules; [
           sddm
         ];
 
-        home-manager.users.${username}.imports = with config.flake.homeModules; [
+        home-manager.users.gradyb.imports = with config.flake.homeModules; [
           swaync
           waybar
           wlogout
@@ -29,6 +25,7 @@
         programs = {
           hyprland = {
             enable = true;
+            withUWSM = true;
           };
         };
 
@@ -47,21 +44,21 @@
         };
       };
 
-      hyprlandLaptop = {username, ...}: {
+      hyprlandLaptop = _: {
         imports = [
           config.flake.nixosModules.hyprland
           {
-            home-manager.users.${username}.imports = [
+            home-manager.users.gradyb.imports = [
               config.flake.homeModules.hyprlandLaptop
             ];
           }
         ];
       };
-      hyprlandPC = {username, ...}: {
+      hyprlandPC = _: {
         imports = [
           config.flake.nixosModules.hyprland
           {
-            home-manager.users.${username}.imports = [
+            home-manager.users.gradyb.imports = [
               config.flake.homeModules.hyprlandPc
             ];
           }
@@ -103,6 +100,9 @@
               hyprscrolling = {
                 column_width = "0.667";
                 fullscreen_on_one_column = true;
+              };
+              hyprsplit = {
+                num_workspaces = 10;
               };
             };
 
