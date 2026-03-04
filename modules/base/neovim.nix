@@ -6,12 +6,16 @@
     ...
   }: {
     imports = [inputs.lazyvim.homeManagerModules.default];
-    home.packages = with pkgs; [
-      neovide
-    ];
-    home.sessionVariables = {
-      EDITOR = "nvim";
+
+    home = {
+      packages = with pkgs; [
+        neovide
+      ];
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
     };
+
     programs.lazyvim = {
       enable = true;
 
@@ -101,6 +105,13 @@
                 })
               end,
             }, -- End of plugin spec
+            {
+              "LazyVim/LazyVim",
+                opts = {
+                  colorscheme = "mini.base16",
+                },
+              }
+            }
           }
         '';
         alejandra = ''
