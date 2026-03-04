@@ -105,12 +105,6 @@
                 })
               end,
             }, -- End of plugin spec
-            {
-              "LazyVim/LazyVim",
-              opts = {
-                colorscheme = "mini.base16",
-              },
-            }
           }
         '';
         alejandra = ''
