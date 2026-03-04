@@ -111,7 +111,7 @@
                   colorscheme = "mini.base16",
                 },
               },
-            }
+            },
           }
         '';
         alejandra = ''
