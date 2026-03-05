@@ -25,6 +25,8 @@
             "custom/notification"
           ];
           "hyprland/workspaces" = {
+            separate-outputs = true;
+            all-outputs = false;
             format = "{icon}";
             format-icons = {
               active = "";
@@ -32,12 +34,26 @@
               empty = "";
             };
             persistent-workspaces = {
-              "*" = [
+              "eDP-1" = [
                 1
                 2
                 3
                 4
                 5
+              ];
+              "DP-9" = [
+                11
+                12
+                13
+                14
+                15
+              ];
+              "DP-10" = [
+                21
+                22
+                23
+                24
+                25
               ];
             };
           };
