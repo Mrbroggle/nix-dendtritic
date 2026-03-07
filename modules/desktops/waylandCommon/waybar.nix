@@ -25,14 +25,15 @@
             "custom/notification"
           ];
           "hyprland/workspaces" = {
-            separate-outputs = true;
-            all-outputs = false;
             format = "{icon}";
             format-icons = {
               active = "";
               default = "";
               empty = "";
             };
+            ## Hyprsplit workspaces stuff
+            separate-outputs = true;
+            all-outputs = false;
             persistent-workspaces = {
               "eDP-1" = [
                 1
