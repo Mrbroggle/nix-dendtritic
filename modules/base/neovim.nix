@@ -48,6 +48,11 @@
             installDependencies = true;
             installRuntimeDependencies = true;
           };
+          clangd = {
+            enable = true;
+            installDependencies = true;
+            installRuntimeDependencies = true;
+          };
         };
         ai = {
           copilot = {
