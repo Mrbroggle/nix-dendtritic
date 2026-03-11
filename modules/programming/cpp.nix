@@ -4,6 +4,7 @@
       gcc
       meson
       cmake
+      gnumake
     ];
   };
 }

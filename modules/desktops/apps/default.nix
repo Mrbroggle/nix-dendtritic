@@ -21,6 +21,7 @@
       qbittorrent
       networkmanagerapplet
       ghidra
+      filezilla
     ];
 
     services = {
