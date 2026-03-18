@@ -82,11 +82,6 @@
           if ! ${pkgs.efibootmgr}/bin/efibootmgr | grep -q "NixOS-GRUB-Signed"; then
             ${pkgs.efibootmgr}/bin/efibootmgr -c -d /dev/nvme0n1 -p 1 -L "NixOS-GRUB-Signed" -l "$EFI_PATH"
           fi
-
-          TARGET_NUM=$(${pkgs.efibootmgr}/bin/efibootmgr | grep "NixOS-GRUB-Signed" | cut -c 5-8)
-          if [ -n "$TARGET_NUM" ]; then
-            ${pkgs.efibootmgr}/bin/efibootmgr -o "$TARGET_NUM"
-          fi
         '';
       };
     };
