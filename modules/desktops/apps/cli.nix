@@ -15,6 +15,7 @@
       cpio
       fastfetch
       unzip
+      zip
       gzip
       ueberzugpp
       jq
