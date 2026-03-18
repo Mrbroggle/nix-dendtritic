@@ -77,7 +77,7 @@
             [ -f "$k" ] && ${pkgs.sbctl}/bin/sbctl sign -s "$k"
           done
 
-          EFI_PATH=$(echo "$EFI_DIR/grubx64.efi" | sed 's|/boot||' | tr '/' '\\')
+          EFI_PATH=$(${pkgs.coreutils}/bin/echo "$EFI_DIR/grubx64.efi" | ${pkgs.gnused}/bin/sed 's|/boot||' | ${pkgs.gnused}/bin/sed 's|/|\\|g')
 
           if ! ${pkgs.efibootmgr}/bin/efibootmgr | grep -q "NixOS-GRUB-Signed"; then
             ${pkgs.efibootmgr}/bin/efibootmgr -c -d /dev/nvme0n1 -p 1 -L "NixOS-GRUB-Signed" -l "$EFI_PATH"
