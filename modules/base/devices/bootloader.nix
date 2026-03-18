@@ -12,7 +12,6 @@
     }: {
       imports = [
         inputs.lanzaboote.nixosModules.lanzaboote
-        config.flake.nixosModules.secureBootLoader
       ];
       boot.loader.systemd-boot.enable = lib.mkForce false;
 
