@@ -37,48 +37,31 @@
       pkgs,
       lib,
       ...
-    }: let
-      boot.loader.systemd-boot.enable = lib.mkForce false;
-      efi.canTouchEfiVariables = lib.mkForce true;
+    }: {
       environment.systemPackages = [
-        pkgs.efibootmgr
+        pkgs.sbctl
       ];
-      fedora-shim = pkgs.stdenv.mkDerivation {
-        name = "fedora-shim";
-        src = pkgs.fetchurl {
-          url = "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/41/Everything/x86_64/os/Packages/s/shim-x64-15.8-3.x86_64.rpm";
-          sha256 = "sha256-/u6zPyp0WpaVqTeMFxSNU4al3VudXsmPZQSPOIslvS4=";
-        };
-        nativeBuildInputs = [pkgs.rpm pkgs.cpio];
-        unpackPhase = "rpm2cpio $src | cpio -idm";
-        installPhase = ''
-          mkdir -p $out
-          # Fedora paths inside the RPM
-          cp ./boot/efi/EFI/fedora/shimx64.efi $out/bootx64.efi
-          cp ./boot/efi/EFI/fedora/mmx64.efi $out/mmx64.efi
-        '';
-      };
-    in {
       boot.loader.grub = {
         enable = true;
         efiSupport = true;
         device = "nodev";
         useOSProber = true;
+        efiInstallAsRemovable = false;
       };
 
-      system.activationScripts.fedoraSecureBoot = {
+      system.activationScripts.signGrub = {
         text = ''
-          # Assuming your EFI partition is mounted at /boot
-          TARGET_DIR="/boot/EFI/nixos"
-          mkdir -p "$TARGET_DIR"
+          # Path to the keys created by sbctl
+          KEY="/etc/secureboot/keys/db/db.key"
+          CERT="/etc/secureboot/keys/db/db.pem"
+          GRUB_BIN="/boot/EFI/nixos/grubx64.efi"
 
-          echo "Deploying Fedora-signed Shim and Fallback binaries..."
-          cp -f ${fedora-shim}/*.efi $TARGET_DIR/
-
-          if [ -f "$TARGET_DIR/grubx64.efi" ]; then
-            echo "GRUB binary is already in place."
+          if [ -f "$KEY" ] && [ -f "$GRUB_BIN" ]; then
+            echo "Signing GRUB binary with custom keys..."
+            # Sign the binary in-place
+            ${pkgs.sbsigntool}/bin/sbsign --key "$KEY" --cert "$CERT" --output "$GRUB_BIN" "$GRUB_BIN"
           else
-            cp /boot/EFI/NixOS-boot/grubx64.efi $TARGET_DIR/grubx64.efi || true
+            echo "Required keys or GRUB binary missing. Skipping signature."
           fi
         '';
       };
