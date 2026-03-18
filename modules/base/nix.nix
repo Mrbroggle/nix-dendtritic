@@ -44,6 +44,9 @@
           "cache.determinate.systems-1:99vU8v06t/48HVsY/uB8GIsV3VskDkHhLFeh9h5vH48="
         ];
       };
+      ## Fix determinate using flakehub over the system flake
+      registry.nixpkgs.flake = inputs.nixpkgs;
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     };
 
     programs.nh = {
