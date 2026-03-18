@@ -40,7 +40,9 @@
     }: let
       boot.loader.systemd-boot.enable = lib.mkForce false;
       efi.canTouchEfiVariables = lib.mkForce true;
-      # Extract the signed shim from Fedora 41
+      environment.systemPackages = [
+        pkgs.efibootmgr
+      ];
       fedora-shim = pkgs.stdenv.mkDerivation {
         name = "fedora-shim";
         src = pkgs.fetchurl {
@@ -73,13 +75,10 @@
           echo "Deploying Fedora-signed Shim and Fallback binaries..."
           cp -f ${fedora-shim}/*.efi $TARGET_DIR/
 
-          # Shim looks for 'grubx64.efi' in the same directory.
-          # We ensure the GRUB binary Nix installed is correctly named.
           if [ -f "$TARGET_DIR/grubx64.efi" ]; then
             echo "GRUB binary is already in place."
           else
-            # Try to locate and copy the GRUB EFI binary if it's not in the nixos folder
-            cp /boot/EFI/nixos/grubx64.efi $TARGET_DIR/grubx64.efi || true
+            cp /boot/EFI/NixOS-boot/grubx64.efi $TARGET_DIR/grubx64.efi || true
           fi
         '';
       };
