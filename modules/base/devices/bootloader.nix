@@ -38,6 +38,8 @@
       lib,
       ...
     }: let
+      boot.loader.systemd-boot.enable = lib.mkForce false;
+      efi.canTouchEfiVariables = lib.mkForce true;
       # Extract the signed shim from Fedora 41
       fedora-shim = pkgs.stdenv.mkDerivation {
         name = "fedora-shim";
