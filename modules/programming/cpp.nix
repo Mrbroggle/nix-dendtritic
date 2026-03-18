@@ -5,6 +5,7 @@
       meson
       cmake
       gnumake
+      gdbgui
     ];
   };
 }
