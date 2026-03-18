@@ -58,29 +58,34 @@
 
       system.activationScripts.secureBootSigning = {
         text = ''
-          if [ -d "/boot/EFI/nixos" ]; then
-            echo "Auto-signing NixOS EFI binaries with sbctl..."
-
-            ${pkgs.sbctl}/bin/sbctl sign -s /boot/EFI/nixos/grubx64.efi
-
-            for k in /boot/EFI/nixos/kernel-*.efi; do
-              if [ -f "$k" ]; then
-                ${pkgs.sbctl}/bin/sbctl sign -s "$k"
-              fi
-            done
+          if [ -d "/boot/EFI/NixOS-boot" ]; then
+            EFI_DIR="/boot/EFI/NixOS-boot"
+          elif [ -d "/boot/EFI/nixos" ]; then
+            EFI_DIR="/boot/EFI/nixos"
+          else
+            echo "Could not find a NixOS EFI directory. Skipping."
+            exit 0
           fi
+
+          echo "Found EFI files in $EFI_DIR. Signing..."
+
+          if [ -f "$EFI_DIR/grubx64.efi" ]; then
+            ${pkgs.sbctl}/bin/sbctl sign -s "$EFI_DIR/grubx64.efi"
+          fi
+
+          for k in "$EFI_DIR"/kernel-*.efi; do
+            [ -f "$k" ] && ${pkgs.sbctl}/bin/sbctl sign -s "$k"
+          done
+
+          EFI_PATH=$(echo "$EFI_DIR/grubx64.efi" | sed 's|/boot||' | tr '/' '\\')
 
           if ! ${pkgs.efibootmgr}/bin/efibootmgr | grep -q "NixOS-GRUB-Signed"; then
-            echo "Boot entry missing. Creating NixOS-GRUB-Signed..."
-            # Change /dev/nvme0n1 and -p 1 to match your actual EFI partition
-            ${pkgs.efibootmgr}/bin/efibootmgr -c -d /dev/nvme0n1 -p 1 -L "NixOS-GRUB-Signed" -l "$GRUB_PATH"
-          else
-            echo "Boot entry 'NixOS-GRUB-Signed' already exists."
+            ${pkgs.efibootmgr}/bin/efibootmgr -c -d /dev/nvme0n1 -p 1 -L "NixOS-GRUB-Signed" -l "$EFI_PATH"
           fi
 
-          NEW_ENTRY=$(${pkgs.efibootmgr}/bin/efibootmgr | grep "NixOS-GRUB-Signed" | cut -c 5-8)
-          if [ -n "$NEW_ENTRY" ]; then
-            ${pkgs.efibootmgr}/bin/efibootmgr -o "$NEW_ENTRY"
+          TARGET_NUM=$(${pkgs.efibootmgr}/bin/efibootmgr | grep "NixOS-GRUB-Signed" | cut -c 5-8)
+          if [ -n "$TARGET_NUM" ]; then
+            ${pkgs.efibootmgr}/bin/efibootmgr -o "$TARGET_NUM"
           fi
         '';
       };
