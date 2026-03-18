@@ -38,9 +38,13 @@
       lib,
       ...
     }: {
-      environment.systemPackages = [
-        pkgs.sbctl
+      environment.systemPackages = with pkgs; [
+        sbsigntool
+        efibootmgr
       ];
+
+      boot.loader.systemd-boot.enable = lib.mkForce false;
+
       boot.loader.grub = {
         enable = true;
         efiSupport = true;
@@ -49,19 +53,39 @@
         efiInstallAsRemovable = false;
       };
 
-      system.activationScripts.signGrub = {
+      system.activationScripts.secureBootSigning = {
         text = ''
-          # Path to the keys created by sbctl
+          # 1. SIGNING LOGIC
           KEY="/etc/secureboot/keys/db/db.key"
           CERT="/etc/secureboot/keys/db/db.pem"
-          GRUB_BIN="/boot/EFI/nixos/grubx64.efi"
+          EFI_DIR="/boot/EFI/nixos"
+          GRUB_PATH="/EFI/nixos/grubx64.efi"
 
-          if [ -f "$KEY" ] && [ -f "$GRUB_BIN" ]; then
-            echo "Signing GRUB binary with custom keys..."
-            # Sign the binary in-place
-            ${pkgs.sbsigntool}/bin/sbsign --key "$KEY" --cert "$CERT" --output "$GRUB_BIN" "$GRUB_BIN"
+          if [ -f "$KEY" ] && [ -d "$EFI_DIR" ]; then
+            echo "Auto-signing EFI binaries..."
+            for f in "$EFI_DIR"/*.efi; do
+              # Skip the Shim if it exists (it's already signed by MS)
+              [[ "$f" == *"bootx64.efi"* ]] && continue
+              ${pkgs.sbsigntool}/bin/sbsign --key "$KEY" --cert "$CERT" --output "$f" "$f"
+            done
+          fi
+
+          # 2. BOOT ENTRY LOGIC
+          # Check if an entry named "NixOS-GRUB-Signed" already exists
+          if ! ${pkgs.efibootmgr}/bin/efibootmgr | grep -q "NixOS-GRUB-Signed"; then
+            echo "Boot entry missing. Creating NixOS-GRUB-Signed..."
+            # Change /dev/nvme0n1 and -p 1 to match your actual EFI partition
+            ${pkgs.efibootmgr}/bin/efibootmgr -c -d /dev/nvme0n1 -p 1 -L "NixOS-GRUB-Signed" -l "$GRUB_PATH"
           else
-            echo "Required keys or GRUB binary missing. Skipping signature."
+            echo "Boot entry 'NixOS-GRUB-Signed' already exists."
+          fi
+
+          # 3. FORCE BOOT ORDER
+          # Ensures our signed GRUB is always at the top (0000 usually)
+          # This prevents BIOS from defaulting back to systemd-boot (0005)
+          NEW_ENTRY=$(${pkgs.efibootmgr}/bin/efibootmgr | grep "NixOS-GRUB-Signed" | cut -c 5-8)
+          if [ -n "$NEW_ENTRY" ]; then
+            ${pkgs.efibootmgr}/bin/efibootmgr -o "$NEW_ENTRY"
           fi
         '';
       };
