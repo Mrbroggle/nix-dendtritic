@@ -93,6 +93,7 @@
               "clipse -listen"
               "[workspace 1 silent] ghostty"
               "${pkgs.tailscale-systray}/bin/tailscale-systray"
+              "systemctl --user start kanshi.service" # Hack because graphical target is always dead???
             ];
 
             plugin = {
