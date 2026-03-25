@@ -29,6 +29,7 @@
       fish = {
         enable = true;
         shellInit = ''
+          zoxide init fish | source
           set fish_greeting "Oh god, no more nix please"
         '';
         interactiveShellInit = ''
