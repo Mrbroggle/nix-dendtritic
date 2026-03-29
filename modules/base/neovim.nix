@@ -55,16 +55,6 @@
           };
         };
         ai = {
-          copilot = {
-            enable = true;
-            installDependencies = true;
-            installRuntimeDependencies = true;
-          };
-          copilot_native = {
-            enable = true;
-            installDependencies = true;
-            installRuntimeDependencies = true;
-          };
           copilot_chat = {
             enable = true;
             installDependencies = true;
@@ -73,8 +63,8 @@
         };
       };
       extraPackages = with pkgs; [
-        nixd # Nix LSP
-        alejandra # Nix formatter
+        nixd
+        alejandra
         svelte-language-server
         tailwindcss
         typescript-language-server

@@ -30,7 +30,6 @@
         enable = true;
         shellInit = ''
           set fish_greeting "Oh god, no more nix please"
-
         '';
         interactiveShellInit = ''
           ${lib.getExe pkgs.direnv} hook fish | source
@@ -162,10 +161,6 @@
       };
       zoxide = {
         enable = true;
-        enableZshIntegration = true;
-        options = [
-          "--hook prompt"
-        ];
       };
     };
   };
