@@ -34,7 +34,6 @@ in {
         keyboard
         audio
         virtualisation
-        winboat
         cpp
       ]
       ++ [
