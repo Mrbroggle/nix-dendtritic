@@ -97,13 +97,9 @@
             ];
 
             plugin = {
-              hyprscrolling = {
-                column_width = "0.667";
-                fullscreen_on_one_column = true;
-              };
-              hyprsplit = {
-                num_workspaces = 10;
-              };
+              # hyprsplit = {
+              #   num_workspaces = 10;
+              # };
             };
 
             misc = {
@@ -122,8 +118,7 @@
           };
 
           plugins = [
-            pkgs.hyprlandPlugins.hyprscrolling
-            pkgs.hyprlandPlugins.hyprsplit
+            # pkgs.hyprlandPlugins.hyprsplit ## waiting on update
           ];
         };
       };
