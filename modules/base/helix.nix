@@ -18,6 +18,7 @@
 
       settings = {
         editor = {
+          auto-format = true;
           line-number = "relative";
           cursor-shape = {
             insert = "bar";
@@ -32,15 +33,13 @@
         language = [
           {
             name = "nix";
-            auto-format = true;
             formatter = {
               command = "nixfmt";
             };
-            language-servers = "nil";
+            language-servers = ["nil"];
           }
           {
             name = "go";
-            auto-format = true;
             formatter = {
               command = "goimports";
             };
