@@ -16,7 +16,7 @@
         # };
       };
       environment.systemPackages = with pkgs; [
-        protonvpn-gui
+        proton-vpn
       ];
       # networking.networkmanager.wifi.backend = "iwd";
 
