@@ -28,7 +28,6 @@
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
 
     lazyvim.url = "github:pfassina/lazyvim-nix";
-
     stylix.url = "github:danth/stylix";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     nixcord.url = "github:kaylorben/nixcord";

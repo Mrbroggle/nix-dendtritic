@@ -33,20 +33,30 @@
           {
             name = "nix";
             auto-format = true;
-            formatter = {command = "nixfmt";};
+            formatter = {
+              command = "nixfmt";
+            };
           }
           {
             name = "go";
             auto-format = true;
-            formatter = {command = "goimports";};
+            formatter = {
+              command = "goimports";
+            };
           }
           {
             name = "svelte";
-            language-servers = ["svelteserver" "tailwindcss-ls"];
+            language-servers = [
+              "svelteserver"
+              "tailwindcss-ls"
+            ];
           }
           {
             name = "javascript";
-            language-servers = ["typescript-language-server" "tailwindcss-ls"];
+            language-servers = [
+              "typescript-language-server"
+              "tailwindcss-ls"
+            ];
           }
         ];
 

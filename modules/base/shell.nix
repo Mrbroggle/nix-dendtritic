@@ -73,7 +73,7 @@
         in {
           vi = "nvim";
           vim = "nvim";
-          enc = "nvim /${path} ";
+          enc = "hx /${path} ";
           cnc = "cd /${path}";
           nrs = "set prevpath (pwd) && cd ${path} && nix fmt -- . && cd $prevpath && ${g} add . && ${lib.getExe pkgs.nh} os switch ${path} && ${g} commit -m \"successful build: $(date)\" &&  ${g} diff HEAD^ HEAD --stat && ${g} push";
           nfu = "nix flake update --flake ${path}/";
