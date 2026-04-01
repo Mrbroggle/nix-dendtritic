@@ -36,6 +36,7 @@
             formatter = {
               command = "nixfmt";
             };
+            language-servers = "nil";
           }
           {
             name = "go";
@@ -64,6 +65,19 @@
           tailwindcss-ls = {
             command = "tailwindcss-language-server";
             args = ["--stdio"];
+          };
+          nil = {
+            command = "nil";
+            config = {
+              nil = {
+                nix = {
+                  flake = {
+                    autoEvalInputs = true;
+                    autoArchive = true;
+                  };
+                };
+              };
+            };
           };
         };
       };
