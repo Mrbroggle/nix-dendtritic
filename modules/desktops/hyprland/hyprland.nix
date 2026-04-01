@@ -115,6 +115,9 @@
               "match:class com.savedra1.clipse, size 622 652"
               "match:class com.savedra1.clipse, stay_focused on"
             ];
+            scrolling = {
+              column_width = "0.67";
+            };
           };
 
           plugins = [
