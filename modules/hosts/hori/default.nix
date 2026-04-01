@@ -42,6 +42,7 @@ in {
             base
             shell
             neovim
+            helix
           ];
         }
       ];
