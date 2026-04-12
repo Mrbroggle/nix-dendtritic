@@ -55,7 +55,7 @@
             name = "cpp";
             formatter = {
               command = "clang-format";
-              args = ["-style=gnu"];
+              args = ["-style=llvm"];
             };
             language-servers = ["clangd"];
             debugger = {
