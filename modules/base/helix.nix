@@ -58,6 +58,7 @@
               command = "clang-format";
               args = ["-style=llvm"];
             };
+            auto-format = true;
             language-servers = ["clangd"];
             debugger = {
               name = "lldb-dap";
