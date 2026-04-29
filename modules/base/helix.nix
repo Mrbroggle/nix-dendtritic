@@ -28,6 +28,7 @@
             normal = "block";
             select = "underline";
           };
+          rulers = [80];
           lsp.display-messages = true;
         };
       };
