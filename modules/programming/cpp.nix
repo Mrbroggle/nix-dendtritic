@@ -6,6 +6,8 @@
       cmake
       gnumake
       gdbgui
+      pkg-config
+      ncurses
     ];
   };
 }
