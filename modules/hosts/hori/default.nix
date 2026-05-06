@@ -35,7 +35,6 @@ in {
         audio
         virtualisation
         cpp
-        c
       ]
       ++ [
         {
