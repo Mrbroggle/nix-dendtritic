@@ -9,5 +9,6 @@
       pkg-config
       ncurses
     ];
+    environment.extraOutputsToInstall = ["dev"];
   };
 }
