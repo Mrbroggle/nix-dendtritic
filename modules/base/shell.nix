@@ -65,6 +65,9 @@
             expansion = "nix run nixpkgs#%";
           };
           nr = "nix run";
+
+          vi = "hx";
+          vim = "hx";
         };
 
         shellAliases = let

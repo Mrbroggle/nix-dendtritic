@@ -16,7 +16,7 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    # determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";

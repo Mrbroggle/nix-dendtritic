@@ -20,7 +20,7 @@
     ...
   }: {
     imports = [
-      inputs.determinate.nixosModules.default
+      # inputs.determinate.nixosModules.default
     ];
     nix = {
       optimise.automatic = true;
@@ -31,7 +31,6 @@
           "nix-command"
           "flakes"
         ];
-        eval-cores = 8;
 
         substituters = [
           "https://install.determinate.systems"

@@ -54,13 +54,6 @@
             installRuntimeDependencies = true;
           };
         };
-        ai = {
-          copilot_chat = {
-            enable = true;
-            installDependencies = true;
-            installRuntimeDependencies = true;
-          };
-        };
       };
       extraPackages = with pkgs; [
         nixd

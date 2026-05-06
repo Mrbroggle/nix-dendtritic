@@ -8,7 +8,7 @@
       enable = true;
       extraPackages = with pkgs; [
         svelte-language-server
-        nodePackages.typescript-language-server
+        typescript-language-server
         nil
         nixfmt-rfc-style
 
