@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.cpp = {pkgs, ...}: {
+  flake.nixosModules.c = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       gcc
       ncurses
