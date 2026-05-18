@@ -119,6 +119,7 @@
           enableTransience = true;
           ## Stolen tokyo night theme from starship.rs
           settings = {
+            scan_timeout = 1000;
             nodejs = {
               format = "[[ $symbol ($version) ](fg:${color.two} bg:${color.one})]($style)";
               symbol = "";
