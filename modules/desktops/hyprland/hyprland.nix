@@ -108,6 +108,10 @@
               focus_on_activate = true;
             };
 
+            render = {
+              vfr = true;
+            };
+
             windowrule = [
               "match:class *, suppress_event maximise"
               "match:class com.mitchellh.ghostty, size 751 954"

@@ -154,7 +154,6 @@
               "[░▒▓](${color.five})$hostname[](bg:${color.two} "
               "fg:${color.five})$directory[](fg:${color.two}"
               "bg:${color.six})$git_branch$git_status[](fg:${color.six}"
-              "bg:${color.one})$nodejs$rust$nix_shell[](fg:${color.one}"
               "bg:${color.four})$time[ ](fg:${color.four})$character"
             ];
 
