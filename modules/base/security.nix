@@ -52,6 +52,13 @@
             enable = true;
             package = pkgs.kdePackages.kwallet-pam;
           };
+          kde = {
+            allowNullPassword = true;
+            kwallet = {
+              enable = true;
+              package = pkgs.kdePackages.kwallet-pam;
+            };
+          };
           /*
           fprintd.enableGnomeKeyring = true;
           sddm.text = lib.mkForce (

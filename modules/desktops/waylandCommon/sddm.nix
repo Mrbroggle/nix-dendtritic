@@ -5,7 +5,11 @@
     ...
   }: {
     services = {
-      xserver.enable = true;
+      xserver = {
+        enable = true;
+
+        displayManager.setupCommands = "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init\n";
+      };
       displayManager = {
         sddm = {
           enable = true;
@@ -13,7 +17,6 @@
             enable = true;
             compositor = "kwin";
           };
-          enableHidpi = true;
           theme = "sddm-astronaut-theme";
           settings = {
             Autologin = {
