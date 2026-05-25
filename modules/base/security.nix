@@ -48,7 +48,10 @@
             enable = true;
             package = pkgs.kdePackages.kwallet-pam;
           };
-          sddm.kwallet.enable = true;
+          sddm.kwallet = {
+            enable = true;
+            package = pkgs.kdePackages.kwallet-pam;
+          };
           /*
           fprintd.enableGnomeKeyring = true;
           sddm.text = lib.mkForce (

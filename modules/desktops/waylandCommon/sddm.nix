@@ -9,7 +9,11 @@
       displayManager = {
         sddm = {
           enable = true;
-          wayland.enable = true;
+          wayland = {
+            enable = true;
+            compositor = "kwin";
+          };
+          enableHidpi = true;
           theme = "sddm-astronaut-theme";
           settings = {
             Autologin = {
