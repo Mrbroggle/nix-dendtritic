@@ -10,7 +10,7 @@
         svelte-language-server
         typescript-language-server
         nil
-        nixfmt-rfc-style
+        nixfmt
 
         clang-tools
         lldb_18

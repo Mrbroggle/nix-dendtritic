@@ -55,7 +55,7 @@
         };
       };
 
-      system.activationScripts.secureBootSigning = {
+      stdenv.hostPlatform.system.activationScripts.secureBootSigning = {
         text = ''
           if [ -d "/boot/EFI/NixOS-boot" ]; then
             EFI_DIR="/boot/EFI/NixOS-boot"

@@ -15,11 +15,11 @@
       inputs.nixos-wsl.nixosModules.default
 
       {
-        system.stateVersion = "25.05";
+        stdenv.hostPlatform.system.stateVersion = "25.05";
         wsl.enable = true;
       }
     ];
 
-    system.stateVersion = "25.05";
+    stdenv.hostPlatform.system.stateVersion = "25.05";
   };
 }
