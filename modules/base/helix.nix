@@ -17,6 +17,8 @@
 
         gopls
         tailwindcss-language-server
+
+        ols
       ];
 
       settings = {

@@ -44,7 +44,7 @@
           };
         };
         services = {
-          login.enableGnomeKeyring = true;
+          login.kwallet.enable = true;
           /*
           fprintd.enableGnomeKeyring = true;
           sddm.text = lib.mkForce (
@@ -66,7 +66,11 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs;
+    with kdePackages; [
+      kwallet
+      kwallet-pam
+      kwalletmanager
       yubikey-manager
       cryptsetup
     ];
@@ -87,7 +91,7 @@
     };
     */
     services = {
-      gnome.gnome-keyring.enable = true;
+      # gnome.gnome-keyring.enable = true;
       opensnitch.enable = true;
       openssh.enable = true;
       pcscd.enable = true;
