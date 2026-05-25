@@ -2,6 +2,7 @@
   flake.nixosModules.sddm = {
     pkgs,
     username,
+    config,
     ...
   }: {
     services = {
@@ -13,10 +14,14 @@
           };
           theme = "sddm-astronaut-theme";
           settings = {
-            Autologin = {
-              # User = username;
+            Theme = {
+              CursorTheme = config.stylix.cursor.name;
             };
           };
+
+          extraPackages = [
+            pkgs.apple-cursor
+          ];
         };
       };
       logind.settings.Login = {
