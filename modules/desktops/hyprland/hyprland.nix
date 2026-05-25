@@ -15,6 +15,7 @@
           enable = true;
           extraPortals = [
             pkgs.xdg-desktop-portal-hyprland
+            pkgs.kdePackages.kwallet
           ];
           config.common.default = "*";
         };

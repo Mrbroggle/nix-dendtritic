@@ -44,7 +44,10 @@
           };
         };
         services = {
-          login.kwallet.enable = true;
+          login.kwallet = {
+            enable = true;
+            package = pkgs.kdePackages.kwallet-pam;
+          };
           /*
           fprintd.enableGnomeKeyring = true;
           sddm.text = lib.mkForce (
