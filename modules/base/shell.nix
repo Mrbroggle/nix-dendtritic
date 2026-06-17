@@ -151,12 +151,12 @@
               disabled = false;
             };
             format = lib.concatStrings [
-              "[░▒▓](${color.five})$hostname[](bg:${color.two} "
-              "fg:${color.five})$directory[](fg:${color.two}"
-              "bg:${color.six})$git_branch$git_status[](fg:${color.six}"
-              "bg:${color.four})$time[ ](fg:${color.four})$character"
+              "[░▒▓](fg:${color.five})$hostname"
+              "[](bg:${color.two} fg:${color.five})$directory"
+              "[](fg:${color.two} bg:${color.six})$git_branch$git_status"
+              "[](fg:${color.six} bg:${color.four})$time"
+              "[ ](fg:${color.four})$character"
             ];
-
             directory = {
               style = "fg:${color.seven} bg:${color.two}";
               format = "[ $path ]($style)";
