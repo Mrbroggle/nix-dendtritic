@@ -93,6 +93,10 @@
         enable = true;
         enableSSHSupport = true;
       };
+      fuse = {
+        enable = true;
+        userAllowOther = true;
+      };
     };
     nix.settings.trusted-users = [
       "root"
