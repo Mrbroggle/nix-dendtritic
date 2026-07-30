@@ -22,6 +22,7 @@
         ols
 
         rust-analyzer
+        clippy
       ];
 
       settings = {
