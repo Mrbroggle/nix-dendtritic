@@ -21,7 +21,7 @@ in {
         inputs.nixos-hardware.nixosModules.framework-13-7040-amd
         secrets
         base
-        secureSystemd-boot
+        systemd-boot
         tailscale
         networking
         bluetooth
