@@ -28,8 +28,6 @@
           "$mainMod, R, exec, $menu"
 
           "$mainMod, B, exec, vivaldi"
-          "$mainMod, P, pseudo, # dwindle"
-          "$mainMod, U, togglesplit, # dwindle"
 
           "$mainMod, F, fullscreen,"
           "$mainMod SHIFT, S, exec, ${lib.getExe pkgs.hyprshot} -z -m region -o ~/Pictures/Screenshots"
