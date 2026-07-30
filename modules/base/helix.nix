@@ -9,6 +9,8 @@
       extraPackages = with pkgs; [
         svelte-language-server
         typescript-language-server
+        tailwindcss-language-server
+
         nil
         nixfmt
 
@@ -16,9 +18,10 @@
         lldb_18
 
         gopls
-        tailwindcss-language-server
 
         ols
+
+        rust-analyzer
       ];
 
       settings = {
@@ -41,6 +44,12 @@
             name = "nix";
             formatter = {command = "nixfmt";};
             language-servers = ["nil"];
+          }
+          {
+            name = "rust";
+            auto-format = true;
+            formatter = {command = "clippy";};
+            language-servers = ["rust-analyzer"];
           }
           {
             name = "go";
@@ -95,7 +104,6 @@
             command = "tailwindcss-language-server";
             args = ["--stdio"];
           };
-
           nil = {
             command = "nil";
             config.nil.nix.flake = {
