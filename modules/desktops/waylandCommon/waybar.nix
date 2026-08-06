@@ -314,7 +314,4 @@
       '';
     };
   };
-  flake.homeModules.hyprland = _: {
-    wayland.windowManager.hyprland.settings.exec-once = ["waybar"];
-  };
 }
