@@ -2,10 +2,10 @@
   flake.homeModules.hyprlandLua = {
     pkgs,
     lib,
-    osConfig,
+    config,
     ...
   }: let
-    hl = osConfig.programs.hypr-lua.lib;
+    hl = config.programs.hypr-lua.lib;
     layout = "scrolling";
   in {
     programs.hypr-lua = let
@@ -26,11 +26,11 @@
           in [
             {
               key = "${mainMod} + ${key}";
-              handler = hl.dsp.workspace n;
+              handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({workspace=${toString n}})";
             }
             {
               key = "${mainMod} + SHIFT + ${key}";
-              handler = hl.dsp.movetoworkspace n;
+              handler = lib.generators.mkLuaInline "hl.dsp.window.move({workspace=${toString n}})";
             }
           ]
         ) (lib.range 1 10);
@@ -72,7 +72,8 @@
             d:
               map (k: {
                 key = "${mainMod} + ${k}";
-                handler = hl.dsp.movefocus d.dir;
+                handler =
+                  lib.generators.mkLuaInline "hl.dsp.focus({ direction = ${d.dir} })";
               })
               d.keys
           )
@@ -86,50 +87,37 @@
                 "up"
                 "K"
               ];
-              handler = hl.dsp.resizeactive 0 (-10);
+              handler =
+                lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=-10 })";
             }
             {
               keys = [
                 "down"
                 "J"
               ];
-              handler = hl.dsp.resizeactive 0 10;
+              handler =
+                lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=10 })";
             }
           ];
-          horizontal =
-            if layout == "scrolling"
-            then [
-              {
-                keys = [
-                  "right"
-                  "L"
-                ];
-                handler = hl.dsp.layoutmsg "colresize +conf";
-              }
-              {
-                keys = [
-                  "left"
-                  "H"
-                ];
-                handler = hl.dsp.layoutmsg "colresize -conf";
-              }
-            ]
-            else [
-              {
-                keys = [
-                  "right"
-                  "L"
-                ];
-                handler = hl.dsp.resizeactive 10 0;
-              }
-              {
-                keys = [
-                  "left"
-                  "H"
-                ];
-                handler = hl.dsp.resizeactive (-10) 0;
-              }
-            ];
+          horizontal = [
+            {
+              keys = [
+                "right"
+                "L"
+              ];
+
+              handler =
+                lib.generators.mkLuaInline "hl.dsp.window.resize({x=10, y=0 })";
+            }
+            {
+              keys = [
+                "left"
+                "H"
+              ];
+              handler =
+                lib.generators.mkLuaInline "hl.dsp.window.resize({x=-10, y=0 })";
+            }
+          ];
         in
           lib.concatMap (
             b:
@@ -144,11 +132,11 @@
           [
             {
               key = "${mainMod} + ALT + K";
-              handler = hl.dsp.movewindow "u";
+              handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = u })";
             }
             {
               key = "${mainMod} + ALT + J";
-              handler = hl.dsp.movewindow "d";
+              handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = d })";
             }
           ]
           ++ (
@@ -156,21 +144,21 @@
             then [
               {
                 key = "${mainMod} + ALT + H";
-                handler = hl.dsp.layoutmsg "swapcol l";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.swap({ direction = l })";
               }
               {
                 key = "${mainMod} + ALT + L";
-                handler = hl.dsp.layoutmsg "swapcol r";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.swap({ direction = r })";
               }
             ]
             else [
               {
                 key = "${mainMod} + ALT + H";
-                handler = hl.dsp.movewindow "l";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = l })";
               }
               {
                 key = "${mainMod} + ALT + L";
-                handler = hl.dsp.movewindow "r";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = r })";
               }
             ]
           );
@@ -209,7 +197,7 @@
           # window / session
           {
             key = "${mainMod} + C";
-            handler = hl.dsp.killactive;
+            handler = hl.dsp.window.close;
           }
           {
             key = "${mainMod} + M";
@@ -217,11 +205,11 @@
           }
           {
             key = "${mainMod} + G";
-            handler = hl.dsp.togglefloating;
+            handler = lib.generators.mkLuaInline "hl.dsp.window.float({ action = 'toggle' })";
           }
           {
             key = "${mainMod} + F";
-            handler = hl.dsp.fullscreen;
+            handler = lib.generators.mkLuaInline "hl.dsp.window.fullscreen({ action = 'toggle' })";
           }
 
           # keyboard layout (kanata)
@@ -241,19 +229,67 @@
           # relative workspace
           {
             key = "${mainMod} + CTRL + L";
-            handler = hl.dsp.workspace "e+1";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e+1\" })";
           }
           {
             key = "${mainMod} + CTRL + H";
-            handler = hl.dsp.workspace "e-1";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e-1\" })";
           }
           {
             key = "${mainMod} + mouse_down";
-            handler = hl.dsp.workspace "e+1";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e+1\" })";
           }
           {
             key = "${mainMod} + mouse_up";
-            handler = hl.dsp.workspace "e-1";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e-1\" })";
+          }
+          {
+            key = "XF86AudioRaiseVolume";
+            handler = hl.dsp.exec_cmd "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+          }
+          {
+            key = "XF86AudioLowerVolume";
+            handler = hl.dsp.exec_cmd "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          }
+          {
+            key = "XF86AudioMute";
+            handler = hl.dsp.exec_cmd "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          }
+          {
+            key = "XF86AudioMicMute";
+            handler = hl.dsp.exec_cmd "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+          }
+          {
+            key = "XF86AudioNext";
+            handler = hl.dsp.exec_cmd "${playerctl} next";
+          }
+          {
+            key = "XF86AudioPause";
+            handler = hl.dsp.exec_cmd "${playerctl} play-pause";
+          }
+          {
+            key = "XF86AudioPlay";
+            handler = hl.dsp.exec_cmd "${playerctl} play-pause";
+          }
+          {
+            key = "XF86AudioPrev";
+            handler = hl.dsp.exec_cmd "${playerctl} previous";
+          }
+
+          {
+            key = "${mainMod} + mouse:272";
+            handler = hl.dsp.window.drag;
+          }
+          {
+            key = "${mainMod} + mouse:273";
+
+            handler =
+              lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=-10 })";
+          }
+          {
+            key = "${mainMod} + SHIFT + mouse:272";
+            handler =
+              lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=10 })";
           }
         ]
         ++ wsBinds
@@ -261,66 +297,15 @@
         ++ resizeBinds
         ++ moveBinds;
 
-      bindm = [
-        {
-          key = "${mainMod} + mouse:272";
-          handler = hl.dsp.movewindow;
-        }
-        {
-          key = "${mainMod} + mouse:273";
-          handler = hl.dsp.resizewindow;
-        }
-        {
-          key = "${mainMod} + SHIFT + mouse:272";
-          handler = hl.dsp.resizewindow;
-        }
-      ];
-
-      bindel = [
-        {
-          key = "XF86AudioRaiseVolume";
-          handler = hl.dsp.exec_cmd "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
-        }
-        {
-          key = "XF86AudioLowerVolume";
-          handler = hl.dsp.exec_cmd "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-        }
-        {
-          key = "XF86AudioMute";
-          handler = hl.dsp.exec_cmd "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-        }
-        {
-          key = "XF86AudioMicMute";
-          handler = hl.dsp.exec_cmd "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-        }
-      ];
-
-      bindl = [
-        {
-          key = "XF86AudioNext";
-          handler = hl.dsp.exec_cmd "${playerctl} next";
-        }
-        {
-          key = "XF86AudioPause";
-          handler = hl.dsp.exec_cmd "${playerctl} play-pause";
-        }
-        {
-          key = "XF86AudioPlay";
-          handler = hl.dsp.exec_cmd "${playerctl} play-pause";
-        }
-        {
-          key = "XF86AudioPrev";
-          handler = hl.dsp.exec_cmd "${playerctl} previous";
-        }
-      ];
-
-      gesture = [
-        {
-          fingers = 3;
-          direction = "horizontal";
-          handler = hl.dsp.workspace;
-        }
-      ];
+      settings.config = {
+        gesture = [
+          {
+            fingers = 3;
+            direction = "horizontal";
+            handler = lib.generators.mkLuaInline "hl.dsp.window.move({})";
+          }
+        ];
+      };
     };
   };
 }

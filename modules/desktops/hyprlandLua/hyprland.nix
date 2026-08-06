@@ -45,34 +45,35 @@
 
       hyprlandLaptopLua = _: {
         imports = [
-          config.flake.nixosModules.hyprland
+          config.flake.nixosModules.hyprlandLua
           {
             home-manager.users.gradyb.imports = [
-              config.flake.homeModules.hyprlandLaptop
+              config.flake.homeModules.hyprlandLaptopLua
             ];
           }
         ];
       };
       hyprlandPCLua = _: {
         imports = [
-          config.flake.nixosModules.hyprland
+          config.flake.nixosModules.hyprlandLua
           {
             home-manager.users.gradyb.imports = [
-              config.flake.homeModules.hyprlandPc
+              config.flake.homeModules.hyprlandPcLua
             ];
           }
         ];
       };
     };
+
     homeModules = {
       hyprlandLaptopLua = _: {imports = [config.flake.homeModules.hyprlandLua];};
       hyprlandPCLua = _: {imports = [config.flake.homeModules.hyprlandLua];};
       hyprlandLua = {
         pkgs,
-        osConfig,
+        config,
         ...
       }: let
-        hl = osConfig.programs.hypr-lua.lib;
+        hl = config.programs.hypr-lua.lib;
       in {
         xdg.portal = {
           enable = true;
@@ -93,6 +94,8 @@
         };
 
         programs.hypr-lua = {
+          enable = true;
+
           on.hyprland.start = [
             (hl.exec_cmd "systemctl --user start hyprpolkitagent")
             (hl.exec_cmd "${pkgs.hyprpaper}")
@@ -103,27 +106,25 @@
             (hl.exec_cmd "${pkgs.tailscale-systray}/bin/tailscale-systray")
             (hl.exec_cmd "systemctl --user start kanshi.service") # Hack because graphical target is always dead???
           ];
-          misc = {
-            force_default_wallpaper = "1"; # Set to 0 or 1 to disable the anime mascot wallpapers
-            disable_hyprland_logo = true; # If true disables the random hyprland logo / anime girl background. :(
-            focus_on_activate = true;
-          };
+          settings.config = {
+            misc = {
+              force_default_wallpaper = "1"; # Set to 0 or 1 to disable the anime mascot wallpapers
+              disable_hyprland_logo = true; # If true disables the random hyprland logo / anime girl background. :(
+              focus_on_activate = true;
+            };
 
-          windowrule = [
-            "match:class *, suppress_event maximise"
-            "match:class com.mitchellh.ghostty, size 751 954"
-            "match:class com.savedra1.clipse, float on"
-            "match:class com.savedra1.clipse, size 622 652"
-            "match:class com.savedra1.clipse, stay_focused on"
-          ];
-          scrolling = {
-            column_width = "0.67";
+            windowrule = [
+              "match:class *, suppress_event maximise"
+              "match:class com.mitchellh.ghostty, size 751 954"
+              "match:class com.savedra1.clipse, float on"
+              "match:class com.savedra1.clipse, size 622 652"
+              "match:class com.savedra1.clipse, stay_focused on"
+            ];
+            scrolling = {
+              column_width = "0.67";
+            };
           };
         };
-
-        plugins = [
-          # pkgs.hyprlandPlugins.hyprsplit ## waiting on update
-        ];
       };
     };
   };

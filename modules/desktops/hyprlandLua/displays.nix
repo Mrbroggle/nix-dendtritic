@@ -35,8 +35,6 @@
             key = "code:233";
             handler = hl.dsp.exec_cmd "brightnessctl set +10% > /dev/null";
           }
-        ];
-        bindl = [
           {
             key = "switch:on:[switch name";
             handler = hl.dsp.exec_cmd "hyprctl keyword monitor \"eDP-1, disable\"";
