@@ -67,9 +67,17 @@
       };
     };
 
-    homeModules = {
-      hyprlandLaptopLua = _: {imports = [config.flake.homeModules.hyprlandLua];};
-      hyprlandPCLua = _: {imports = [config.flake.homeModules.hyprlandLua];};
+    homeModules = let
+      hyprlandModules = with config.flake.homeModules; [
+        hyprlandLua
+        hyprlandLuaDeco
+        hyprlandLuaBinds
+        hyprlandLuaDisplays
+        hyprlandLuaInputs
+      ];
+    in {
+      hyprlandLaptopLua = _: {imports = hyprlandModules;};
+      hyprlandPCLua = _: {imports = hyprlandModules;};
       hyprlandLua = {
         pkgs,
         config,

@@ -1,5 +1,5 @@
 {
-  flake.homeModules.hyprlandLua = {
+  flake.homeModules.hyprlandLuaBinds = {
     pkgs,
     lib,
     config,

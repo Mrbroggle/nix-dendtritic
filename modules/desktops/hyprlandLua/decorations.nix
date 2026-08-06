@@ -1,5 +1,5 @@
 {lib, ...}: {
-  flake.homeModules.hyprlandLua = _: {
+  flake.homeModules.hyprlandLuaDeco = _: {
     programs.hypr-lua.settings.config = lib.mkMerge [
       {
         general = {

@@ -92,7 +92,7 @@
         ];
       };
     };
-    hyprlandLua = _: {
+    hyprlandLuaDisplays = _: {
       home = {
         sessionVariables.NIXOS_OZONE_WL = "1";
       };

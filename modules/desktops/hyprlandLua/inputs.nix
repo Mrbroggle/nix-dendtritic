@@ -1,5 +1,5 @@
 {
-  flake.homeModules.hyprlandLua = _: {
+  flake.homeModules.hyprlandLuaInputs = _: {
     programs.hypr-lua.settings.config = {
       input = {
         sensitivity = "-0.25"; # -1.0 - 1.0, 0 means no modification.
