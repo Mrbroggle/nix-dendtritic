@@ -58,7 +58,7 @@
           config.flake.nixosModules.hyprlandLua
           {
             home-manager.users.gradyb.imports = [
-              config.flake.homeModules.hyprlandPcLua
+              config.flake.homeModules.hyprlandPCLua
             ];
           }
         ];

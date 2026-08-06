@@ -37,6 +37,7 @@
           };
           rulers = [80];
           lsp.display-messages = true;
+          tab-width = 4;
         };
       };
 
@@ -81,7 +82,7 @@
             name = "cpp";
             formatter = {
               command = "clang-format";
-              args = ["-style=llvm"];
+              args = ["-style=\"\{BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never\}\" "];
             };
             auto-format = true;
             language-servers = ["clangd"];

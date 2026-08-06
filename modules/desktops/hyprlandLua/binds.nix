@@ -26,7 +26,7 @@
           in [
             {
               key = "${mainMod} + ${key}";
-              handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = ${toString n} })";
+              handler = lib.generators.mkLuaInline "hl.dsp.focus({ workspace = ${toString n} })";
             }
             {
               key = "${mainMod} + SHIFT + ${key}";
@@ -214,19 +214,19 @@
           # relative workspace
           {
             key = "${mainMod} + CTRL + L";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e+1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.focus({ workspace = \"e+1\" })";
           }
           {
             key = "${mainMod} + CTRL + H";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e-1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.focus({ workspace = \"e-1\" })";
           }
           {
             key = "${mainMod} + mouse_down";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e+1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.focus({ workspace = \"e+1\" })";
           }
           {
             key = "${mainMod} + mouse_up";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e-1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.focus({ workspace = \"e-1\" })";
           }
 
           # media / volume
