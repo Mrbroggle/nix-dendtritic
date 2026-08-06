@@ -26,11 +26,11 @@
           in [
             {
               key = "${mainMod} + ${key}";
-              handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({workspace=${toString n}})";
+              handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = ${toString n} })";
             }
             {
               key = "${mainMod} + SHIFT + ${key}";
-              handler = lib.generators.mkLuaInline "hl.dsp.window.move({workspace=${toString n}})";
+              handler = lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = ${toString n} })";
             }
           ]
         ) (lib.range 1 10);
@@ -72,50 +72,34 @@
             d:
               map (k: {
                 key = "${mainMod} + ${k}";
-                handler =
-                  lib.generators.mkLuaInline "hl.dsp.focus({ direction = ${d.dir} })";
+                handler = lib.generators.mkLuaInline "hl.dsp.focus({ direction = \"${d.dir}\" })";
               })
               d.keys
           )
           dirs;
 
-        # resize / move, arrow + vim variants, layout dependent
+        # resize, arrow + vim variants
         resizeBinds = let
-          vertical = [
+          entries = [
             {
-              keys = [
-                "up"
-                "K"
-              ];
-              handler =
-                lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=-10 })";
+              keys = ["up" "K"];
+              x = 0;
+              y = -10;
             }
             {
-              keys = [
-                "down"
-                "J"
-              ];
-              handler =
-                lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=10 })";
-            }
-          ];
-          horizontal = [
-            {
-              keys = [
-                "right"
-                "L"
-              ];
-
-              handler =
-                lib.generators.mkLuaInline "hl.dsp.window.resize({x=10, y=0 })";
+              keys = ["down" "J"];
+              x = 0;
+              y = 10;
             }
             {
-              keys = [
-                "left"
-                "H"
-              ];
-              handler =
-                lib.generators.mkLuaInline "hl.dsp.window.resize({x=-10, y=0 })";
+              keys = ["right" "L"];
+              x = 10;
+              y = 0;
+            }
+            {
+              keys = ["left" "H"];
+              x = -10;
+              y = 0;
             }
           ];
         in
@@ -123,20 +107,21 @@
             b:
               map (k: {
                 key = "${mainMod} + SHIFT + ${k}";
-                inherit (b) handler;
+                handler = lib.generators.mkLuaInline "hl.dsp.window.resize({ x = ${toString b.x}, y = ${toString b.y} })";
               })
               b.keys
-          ) (vertical ++ horizontal);
+          )
+          entries;
 
         moveBinds =
           [
             {
               key = "${mainMod} + ALT + K";
-              handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = u })";
+              handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"u\" })";
             }
             {
               key = "${mainMod} + ALT + J";
-              handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = d })";
+              handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"d\" })";
             }
           ]
           ++ (
@@ -144,21 +129,21 @@
             then [
               {
                 key = "${mainMod} + ALT + H";
-                handler = lib.generators.mkLuaInline "hl.dsp.window.swap({ direction = l })";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.swap({ direction = \"l\" })";
               }
               {
                 key = "${mainMod} + ALT + L";
-                handler = lib.generators.mkLuaInline "hl.dsp.window.swap({ direction = r })";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.swap({ direction = \"r\" })";
               }
             ]
             else [
               {
                 key = "${mainMod} + ALT + H";
-                handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = l })";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"l\" })";
               }
               {
                 key = "${mainMod} + ALT + L";
-                handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = r })";
+                handler = lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"r\" })";
               }
             ]
           );
@@ -229,20 +214,22 @@
           # relative workspace
           {
             key = "${mainMod} + CTRL + L";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e+1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e+1\" })";
           }
           {
             key = "${mainMod} + CTRL + H";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e-1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e-1\" })";
           }
           {
             key = "${mainMod} + mouse_down";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e+1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e+1\" })";
           }
           {
             key = "${mainMod} + mouse_up";
-            handler = lib.generators.mkLuaInline "hl.dsp.workspace.move({ workspace = \"e-1\" })";
+            handler = lib.generators.mkLuaInline "hl.dsp.workspace.focus({ workspace = \"e-1\" })";
           }
+
+          # media / volume
           {
             key = "XF86AudioRaiseVolume";
             handler = hl.dsp.exec_cmd "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
@@ -276,20 +263,18 @@
             handler = hl.dsp.exec_cmd "${playerctl} previous";
           }
 
+          # mouse drag
           {
             key = "${mainMod} + mouse:272";
             handler = hl.dsp.window.drag;
           }
           {
             key = "${mainMod} + mouse:273";
-
-            handler =
-              lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=-10 })";
+            handler = hl.dsp.window.resize;
           }
           {
             key = "${mainMod} + SHIFT + mouse:272";
-            handler =
-              lib.generators.mkLuaInline "hl.dsp.window.resize({x=0, y=10 })";
+            handler = hl.dsp.window.resize;
           }
         ]
         ++ wsBinds
@@ -299,11 +284,7 @@
 
       settings.config = {
         gesture = [
-          {
-            fingers = 3;
-            direction = "horizontal";
-            handler = lib.generators.mkLuaInline "hl.dsp.window.move({})";
-          }
+          "3, horizontal, workspace"
         ];
       };
     };
