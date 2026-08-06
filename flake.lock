@@ -316,6 +316,21 @@
         "type": "github"
       }
     },
+    "hypr-lua": {
+      "locked": {
+        "lastModified": 1781852514,
+        "narHash": "sha256-WUbwdcssnMS6TSu4rvb1ILMftUJdgKWMcTib/EHXmyU=",
+        "owner": "SatelliteDish",
+        "repo": "hypr-lua",
+        "rev": "1b845f4ad359d4bbef5e5052094dabb7f99f328a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SatelliteDish",
+        "repo": "hypr-lua",
+        "type": "github"
+      }
+    },
     "import-tree": {
       "locked": {
         "lastModified": 1784254960,
@@ -706,6 +721,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "hypr-lua": "hypr-lua",
         "import-tree": "import-tree",
         "lanzaboote": "lanzaboote",
         "lazyvim": "lazyvim",

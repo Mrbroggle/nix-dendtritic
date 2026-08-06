@@ -13,6 +13,7 @@
 
         nil
         nixfmt
+        alejandra
 
         clang-tools
         lldb_18
@@ -43,26 +44,38 @@
         language = [
           {
             name = "nix";
-            formatter = {command = "nixfmt";};
+            formatter = {
+              command = "alejandra";
+            };
             language-servers = ["nil"];
           }
           {
             name = "rust";
             auto-format = true;
-            formatter = {command = "clippy";};
+            formatter = {
+              command = "clippy";
+            };
             language-servers = ["rust-analyzer"];
           }
           {
             name = "go";
-            formatter = {command = "goimports";};
+            formatter = {
+              command = "goimports";
+            };
           }
           {
             name = "svelte";
-            language-servers = ["svelteserver" "tailwindcss-ls"];
+            language-servers = [
+              "svelteserver"
+              "tailwindcss-ls"
+            ];
           }
           {
             name = "javascript";
-            language-servers = ["typescript-language-server" "tailwindcss-ls"];
+            language-servers = [
+              "typescript-language-server"
+              "tailwindcss-ls"
+            ];
           }
           {
             name = "cpp";
@@ -98,7 +111,10 @@
         language-server = {
           clangd = {
             command = "clangd";
-            args = ["--background-index" "--clang-tidy"];
+            args = [
+              "--background-index"
+              "--clang-tidy"
+            ];
           };
 
           tailwindcss-ls = {
