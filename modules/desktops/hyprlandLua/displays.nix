@@ -1,6 +1,6 @@
 {
   flake.homeModules = {
-    hyprlandPCLua = _: {
+    hyprlandPCLuaDisplays = _: {
       programs.hypr-lua.settings.config = {
         monitor = [
           "DP-2, 1920x1080@165,0x0,1"
@@ -8,7 +8,7 @@
         ];
       };
     };
-    hyprlandLaptopLua = {config, ...}: let
+    hyprlandLaptopLuaDisplays = {config, ...}: let
       hl = config.programs.hypr-lua.lib;
     in {
       home.sessionVariables = {

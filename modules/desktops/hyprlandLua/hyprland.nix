@@ -49,6 +49,7 @@
           {
             home-manager.users.gradyb.imports = [
               config.flake.homeModules.hyprlandLaptopLua
+              config.flake.homeModules.hyprlandLaptopLuaDisplays
             ];
           }
         ];
@@ -59,6 +60,7 @@
           {
             home-manager.users.gradyb.imports = [
               config.flake.homeModules.hyprlandPCLua
+              config.flake.homeModules.hyprlandPCLuaDisplays
             ];
           }
         ];
