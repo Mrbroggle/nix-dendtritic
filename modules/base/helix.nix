@@ -37,7 +37,6 @@
           };
           rulers = [80];
           lsp.display-messages = true;
-          tab-width = 4;
         };
       };
 

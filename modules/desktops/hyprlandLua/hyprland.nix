@@ -73,6 +73,7 @@
       hyprlandLua = {
         pkgs,
         config,
+        lib,
         ...
       }: let
         hl = config.programs.hypr-lua.lib;
@@ -100,12 +101,12 @@
 
           on.hyprland.start = [
             (hl.exec_cmd "systemctl --user start hyprpolkitagent")
-            (hl.exec_cmd "${pkgs.hyprpaper}")
-            (hl.exec_cmd "${pkgs.udiskie}")
+            (hl.exec_cmd "${lib.getExe pkgs.hyprpaper}")
+            (hl.exec_cmd "${lib.getExe pkgs.udiskie}")
             (hl.exec_cmd "nm-applet")
             (hl.exec_cmd "clipse -listen")
             (hl.exec_cmd "[workspace 1 silent] ghostty")
-            (hl.exec_cmd "${pkgs.tailscale-systray}/bin/tailscale-systray")
+            (hl.exec_cmd "${lib.getExe pkgs.tailscale-systray}/bin/tailscale-systray")
             (hl.exec_cmd "systemctl --user start kanshi.service") # Hack because graphical target is always dead???
           ];
           settings.config = {
