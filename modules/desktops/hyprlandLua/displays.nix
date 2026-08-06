@@ -35,14 +35,14 @@
             key = "code:233";
             handler = hl.dsp.exec_cmd "brightnessctl set +10% > /dev/null";
           }
-          {
-            key = "switch:on:[switch name";
-            handler = hl.dsp.exec_cmd "hyprctl keyword monitor \"eDP-1, disable\"";
-          }
-          {
-            key = "switch:off:[switch name]";
-            handler = hl.dsp.exec_cmd "hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"";
-          }
+          # {
+          #   key = "switch:on:[switch name";
+          #   handler = hl.dsp.exec_cmd "hyprctl keyword monitor \"eDP-1, disable\"";
+          # }
+          # {
+          #   key = "switch:off:[switch name]";
+          #   handler = hl.dsp.exec_cmd "hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"";
+          # }
         ];
       };
 
