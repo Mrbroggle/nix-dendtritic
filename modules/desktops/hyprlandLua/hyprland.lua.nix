@@ -133,7 +133,7 @@
 
       local terminal = "${lib.getExe pkgs.ghostty}"
       local fileManager = "${lib.getExe pkgs.kdePackages.dolphin}"
-      local menu = " --show drun"
+      local menu = "${lib.getExe pkgs.wofi} --show drun"
       local playerctl = "${lib.getExe pkgs.playerctl}"
       local btop = "${lib.getExe pkgs.btop}"
       local hyprshot = "${lib.getExe pkgs.hyprshot}"
