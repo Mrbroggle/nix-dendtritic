@@ -1,49 +1,12 @@
 {
   flake.homeModules = {
-    hyprlandPCLuaDisplays = _: {
-      programs.hypr-lua.settings.config = {
-        monitor = [
-          "DP-2, 1920x1080@165,0x0,1"
-          "HDMI-A-2, 1920x1080@100,-1920x-400,1,transform,1"
-        ];
-      };
-    };
-    hyprlandLaptopLuaDisplays = {config, ...}: let
-      hl = config.programs.hypr-lua.lib;
-    in {
+    hyprlandLua = {
+      config,
+      lib,
+      ...
+    }: {
       home.sessionVariables = {
         GDK_SCALE = 2;
-      };
-      programs.hypr-lua = {
-        settings.config = {
-          # backup for is Kanshi dies
-          monitor = [
-            "eDP-1, 2880x1920@120, 0x0, 1.875"
-            ", preferred, auto-left, 1"
-          ];
-          env = [
-            "GDK_SCALE,2"
-            "XCURSOR_SIZE,24"
-          ];
-        };
-        bind = [
-          {
-            key = "code:232";
-            handler = hl.dsp.exec_cmd "brightnessctl set -10% > /dev/null";
-          }
-          {
-            key = "code:233";
-            handler = hl.dsp.exec_cmd "brightnessctl set +10% > /dev/null";
-          }
-          # {
-          #   key = "switch:on:[switch name";
-          #   handler = hl.dsp.exec_cmd "hyprctl keyword monitor \"eDP-1, disable\"";
-          # }
-          # {
-          #   key = "switch:off:[switch name]";
-          #   handler = hl.dsp.exec_cmd "hyprctl keyword monitor \"eDP-1, 2560x1600, 0x0, 1\"";
-          # }
-        ];
       };
 
       services.kanshi = {
@@ -95,14 +58,6 @@
     hyprlandLuaDisplays = _: {
       home = {
         sessionVariables.NIXOS_OZONE_WL = "1";
-      };
-      programs.hypr-lua.settings.config = {
-        xwayland = {
-          force_zero_scaling = true;
-        };
-        monitor = [
-          ", preferred, auto-left, 1"
-        ];
       };
     };
   };

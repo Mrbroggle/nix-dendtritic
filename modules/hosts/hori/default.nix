@@ -25,7 +25,7 @@ in {
         tailscale
         networking
         bluetooth
-        hyprlandLaptopLua
+        hyprlandLua
         stylix
         appSuite
         chat
