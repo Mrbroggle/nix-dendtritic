@@ -4,6 +4,11 @@
       gcc
       meson
       cmake
+      gnumake
+      gdbgui
+      pkg-config
+      ncurses
     ];
+    environment.extraOutputsToInstall = ["dev"];
   };
 }

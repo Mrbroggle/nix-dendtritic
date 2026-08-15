@@ -44,7 +44,21 @@
           };
         };
         services = {
-          login.enableGnomeKeyring = true;
+          login.kwallet = {
+            enable = true;
+            package = pkgs.kdePackages.kwallet-pam;
+          };
+          sddm.kwallet = {
+            enable = true;
+            package = pkgs.kdePackages.kwallet-pam;
+          };
+          kde = {
+            allowNullPassword = true;
+            kwallet = {
+              enable = true;
+              package = pkgs.kdePackages.kwallet-pam;
+            };
+          };
           /*
           fprintd.enableGnomeKeyring = true;
           sddm.text = lib.mkForce (
@@ -66,7 +80,11 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs;
+    with kdePackages; [
+      kwallet
+      kwallet-pam
+      kwalletmanager
       yubikey-manager
       cryptsetup
     ];
@@ -74,6 +92,10 @@
       gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
+      };
+      fuse = {
+        enable = true;
+        userAllowOther = true;
       };
     };
     nix.settings.trusted-users = [
@@ -87,7 +109,7 @@
     };
     */
     services = {
-      gnome.gnome-keyring.enable = true;
+      # gnome.gnome-keyring.enable = true;
       opensnitch.enable = true;
       openssh.enable = true;
       pcscd.enable = true;
@@ -96,42 +118,10 @@
   };
   flake.homeModules.base = {pkgs, ...}: {
     services.opensnitch-ui.enable = true;
-    programs.gpg = {
-      enable = true;
-
-      # https://support.yubico.com/hc/en-us/articles/4819584884124-Resolving-GPG-s-CCID-conflicts
-      scdaemonSettings = {
-        disable-ccid = true;
-      };
-
-      # https://github.com/drduh/config/blob/master/gpg.conf
-      settings = {
-        personal-cipher-preferences = "AES256 AES192 AES";
-        personal-digest-preferences = "SHA512 SHA384 SHA256";
-        personal-compress-preferences = "ZLIB BZIP2 ZIP Uncompressed";
-        default-preference-list = "SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed";
-        cert-digest-algo = "SHA512";
-        s2k-digest-algo = "SHA512";
-        s2k-cipher-algo = "AES256";
-        charset = "utf-8";
-        fixed-list-mode = true;
-        no-comments = true;
-        no-emit-version = true;
-        keyid-format = "0xlong";
-        list-options = "show-uid-validity";
-        verify-options = "show-uid-validity";
-        with-fingerprint = true;
-        require-cross-certification = true;
-        no-symkey-cache = true;
-        use-agent = true;
-        throw-keyids = true;
-      };
-    };
+    programs.gpg.enable = true;
 
     services.gpg-agent = {
       enable = true;
-
-      # https://github.com/drduh/config/blob/master/gpg-agent.conf
       defaultCacheTtl = 60;
       maxCacheTtl = 120;
       pinentry.package = pkgs.pinentry-curses;

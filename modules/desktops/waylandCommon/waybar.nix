@@ -31,13 +31,30 @@
               default = "";
               empty = "";
             };
+            ## Hyprsplit workspaces stuff
+            separate-outputs = true;
+            all-outputs = false;
             persistent-workspaces = {
-              "*" = [
+              "eDP-1" = [
                 1
                 2
                 3
                 4
                 5
+              ];
+              "DP-9" = [
+                11
+                12
+                13
+                14
+                15
+              ];
+              "DP-10" = [
+                21
+                22
+                23
+                24
+                25
               ];
             };
           };
@@ -296,8 +313,5 @@
         }
       '';
     };
-  };
-  flake.homeModules.hyprland = _: {
-    wayland.windowManager.hyprland.settings.exec-once = ["waybar"];
   };
 }

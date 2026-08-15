@@ -11,6 +11,7 @@
 
       sharedModules = [
         inputs.lazyvim.homeManagerModules.default
+        inputs.hypr-lua.homeManagerModules.default
       ];
     };
   };

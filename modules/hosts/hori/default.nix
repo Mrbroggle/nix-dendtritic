@@ -21,11 +21,11 @@ in {
         inputs.nixos-hardware.nixosModules.framework-13-7040-amd
         secrets
         base
-        secureBootLoader
+        systemd-boot
         tailscale
         networking
         bluetooth
-        hyprlandLaptop
+        hyprlandLua
         stylix
         appSuite
         chat
@@ -34,6 +34,8 @@ in {
         keyboard
         audio
         virtualisation
+        cpp
+        rust
       ]
       ++ [
         {
@@ -41,6 +43,7 @@ in {
             base
             shell
             neovim
+            helix
           ];
         }
       ];

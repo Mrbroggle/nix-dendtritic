@@ -1,7 +1,9 @@
 {
   flake.nixosModules.browsers = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
-      vivaldi
+      (vivaldi.override {
+        commandLineArgs = "--password-store=kwallet6";
+      })
     ];
   };
 }

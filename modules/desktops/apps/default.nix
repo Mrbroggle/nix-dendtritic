@@ -21,6 +21,7 @@
       qbittorrent
       networkmanagerapplet
       ghidra
+      filezilla
     ];
 
     services = {
@@ -29,6 +30,7 @@
       gvfs.enable = true;
     };
 
+    hardware.xpadneo.enable = true;
     programs = {
       steam = {
         enable = true;

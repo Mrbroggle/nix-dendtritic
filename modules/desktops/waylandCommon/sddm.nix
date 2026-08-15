@@ -2,20 +2,26 @@
   flake.nixosModules.sddm = {
     pkgs,
     username,
+    config,
     ...
   }: {
     services = {
-      xserver.enable = true;
       displayManager = {
         sddm = {
           enable = true;
-          wayland.enable = true;
+          wayland = {
+            enable = true;
+          };
           theme = "sddm-astronaut-theme";
           settings = {
-            Autologin = {
-              # User = username;
+            Theme = {
+              CursorTheme = config.stylix.cursor.name;
             };
           };
+
+          extraPackages = [
+            pkgs.apple-cursor
+          ];
         };
       };
       logind.settings.Login = {

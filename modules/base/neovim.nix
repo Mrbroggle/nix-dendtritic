@@ -6,9 +6,16 @@
     ...
   }: {
     imports = [inputs.lazyvim.homeManagerModules.default];
-    home.packages = with pkgs; [
-      neovide
-    ];
+
+    home = {
+      packages = with pkgs; [
+        neovide
+      ];
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
+    };
+
     programs.lazyvim = {
       enable = true;
 
@@ -41,19 +48,7 @@
             installDependencies = true;
             installRuntimeDependencies = true;
           };
-        };
-        ai = {
-          copilot = {
-            enable = true;
-            installDependencies = true;
-            installRuntimeDependencies = true;
-          };
-          copilot_native = {
-            enable = true;
-            installDependencies = true;
-            installRuntimeDependencies = true;
-          };
-          copilot_chat = {
+          clangd = {
             enable = true;
             installDependencies = true;
             installRuntimeDependencies = true;
@@ -61,8 +56,8 @@
         };
       };
       extraPackages = with pkgs; [
-        nixd # Nix LSP
-        alejandra # Nix formatter
+        nixd
+        alejandra
         svelte-language-server
         tailwindcss
         typescript-language-server

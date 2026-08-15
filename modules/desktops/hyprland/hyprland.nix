@@ -15,6 +15,7 @@
           enable = true;
           extraPortals = [
             pkgs.xdg-desktop-portal-hyprland
+            pkgs.kdePackages.kwallet
           ];
           config.common.default = "*";
         };
@@ -25,7 +26,6 @@
         programs = {
           hyprland = {
             enable = true;
-            withUWSM = true;
           };
         };
 
@@ -94,6 +94,8 @@
               "uwsm-app clipse -listen"
               "[workspace 1 silent] ghostty"
               "uwsm-app ${pkgs.tailscale-systray}/bin/tailscale-systray"
+              "${pkgs.tailscale-systray}/bin/tailscale-systray"
+              "systemctl --user start kanshi.service" # Hack because graphical target is always dead???
             ];
 
             general = {
@@ -101,13 +103,9 @@
             };
 
             plugin = {
-              hyprscrolling = {
-                column_width = "0.667";
-                fullscreen_on_one_column = true;
-              };
-              hyprsplit = {
-                num_workspaces = 10;
-              };
+              # hyprsplit = {
+              #   num_workspaces = 10;
+              # };
             };
 
             misc = {
@@ -123,11 +121,13 @@
               "match:class com.savedra1.clipse, size 622 652"
               "match:class com.savedra1.clipse, stay_focused on"
             ];
+            scrolling = {
+              column_width = "0.67";
+            };
           };
 
           plugins = [
-            pkgs.hyprlandPlugins.hyprscrolling
-            pkgs.hyprlandPlugins.hyprsplit
+            # pkgs.hyprlandPlugins.hyprsplit ## waiting on update
           ];
         };
       };
