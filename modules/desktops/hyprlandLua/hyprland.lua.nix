@@ -75,12 +75,6 @@
           },
         },
 
-        hl.gesture({
-          fingers = 3,
-          direction = "horizontal",
-          action = "workspace",
-        })
-
         master = {
           new_status = "master",
         },
@@ -130,6 +124,16 @@
         float = true,
         size = "622 652",
         stay_focused = true,
+      })
+
+      --------------------------------------------------------------------
+      -- gestures
+      --------------------------------------------------------------------
+
+      hl.gesture({
+        fingers = 3,
+        direction = "horizontal",
+        action = "workspace",
       })
 
       --------------------------------------------------------------------
