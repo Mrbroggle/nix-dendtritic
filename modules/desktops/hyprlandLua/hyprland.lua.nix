@@ -204,7 +204,7 @@
       -- move / swap (scrolling layout)
       hl.bind(mainMod .. " + ALT + K", hl.dsp.window.move({ direction = "u" }))
       hl.bind(mainMod .. " + ALT + J", hl.dsp.window.move({ direction = "d" }))
-      hl.bind(mainMod .. " + ALT + H", hl.dsp.layout("swapcol l")
+      hl.bind(mainMod .. " + ALT + H", hl.dsp.layout("swapcol l"))
       hl.bind(mainMod .. " + ALT + L", hl.dsp.layout("swapcol r"))
 
       -- mouse drag
