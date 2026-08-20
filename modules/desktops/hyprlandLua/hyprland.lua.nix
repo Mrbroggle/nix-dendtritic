@@ -75,6 +75,12 @@
           },
         },
 
+        hl.gesture({
+          fingers = 3,
+          direction = "horizontal",
+          action = "workspace"
+        })
+
         master = {
           new_status = "master",
         },
@@ -188,25 +194,14 @@
         end
       end
 
-      -- resize
-      local resizes = {
-        { keys = { "up", "K" }, x = 0, y = -10 },
-        { keys = { "down", "J" }, x = 0, y = 10 },
-        { keys = { "right", "L" }, x = 10, y = 0 },
-        { keys = { "left", "H" }, x = -10, y = 0 },
-      }
-
-      for _, r in ipairs(resizes) do
-        for _, k in ipairs(r.keys) do
-          hl.bind(mainMod .. " + SHIFT + " .. k, hl.dsp.window.resize({ x = r.x, y = r.y }))
-        end
-      end
+      hl.bind(mainMod .. " + SHIFT + left", hl.dsp.layout("colresize = +conf"))
+      hl.bind(mainMod .. " + SHIFT + left", hl.dsp.layout("colresize -conf"))
 
       -- move / swap (scrolling layout)
       hl.bind(mainMod .. " + ALT + K", hl.dsp.window.move({ direction = "u" }))
       hl.bind(mainMod .. " + ALT + J", hl.dsp.window.move({ direction = "d" }))
-      hl.bind(mainMod .. " + ALT + H", hl.dsp.window.swap({ direction = "l" }))
-      hl.bind(mainMod .. " + ALT + L", hl.dsp.window.swap({ direction = "r" }))
+      hl.bind(mainMod .. " + ALT + H", hl.dsp.layout("swapcol l")
+      hl.bind(mainMod .. " + ALT + L", hl.dsp.layout("swapcol r"))
 
       -- mouse drag
       hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
