@@ -166,6 +166,8 @@
       hl.bind(mainMod .. " + G", hl.dsp.window.float({ action = "toggle" }))
       hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 
+      hl.bind("xf86poweroff", hl.dsp.exec_cmd("wlogout"))
+
       -- keyboard layout (kanata)
       hl.bind("ALT + SHIFT + SPACE", hl.dsp.exec_cmd("hyprctl switchxkblayout kanata next"))
       hl.bind("ALT + SHIFT + 1", hl.dsp.exec_cmd("hyprctl switchxkblayout kanata 0"))
