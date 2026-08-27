@@ -17,6 +17,7 @@
     home.packages = with pkgs; [
       pay-respects
       grc
+      fzf
       comma
     ];
     programs = {
