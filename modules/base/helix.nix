@@ -81,7 +81,10 @@
             name = "cpp";
             formatter = {
               command = "clang-format";
-              args = ["-style=\"\{BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never\}\" "];
+              args = [
+                "--style={BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never}"
+                "--assume-filename=%{buffer_name}"
+              ];
             };
             auto-format = true;
             language-servers = ["clangd"];
@@ -110,7 +113,10 @@
             name = "c";
             formatter = {
               command = "clang-format";
-              args = ["-style=\"\{BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never\}\" "];
+              args = [
+                "--style={BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never}"
+                "--assume-filename=%{buffer_name}"
+              ];
             };
             auto-format = true;
             language-servers = ["clangd"];
