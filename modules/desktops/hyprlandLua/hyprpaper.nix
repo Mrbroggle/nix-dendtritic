@@ -1,22 +1,9 @@
 {
   flake.homeModules.hyprpaper = {
-    pkgs,
-    styles,
-    ...
-  }: {
-    services.hyprpaper = let
-      inherit (styles pkgs) image;
-    in {
+    services.hyprpaper = {
       enable = true;
       settings = {
         ipc = "on";
-        preload = [
-          "${image}"
-        ];
-
-        wallpaper = [
-          ",${image}"
-        ];
       };
     };
   };
