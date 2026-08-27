@@ -106,6 +106,35 @@
               ];
             };
           }
+          {
+            name = "c";
+            formatter = {
+              command = "clang-format";
+              args = ["-style=\"\{BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never\}\" "];
+            };
+            auto-format = true;
+            language-servers = ["clangd"];
+            debugger = {
+              name = "lldb-dap";
+              transport = "stdio";
+              command = "lldb-dap";
+              templates = [
+                {
+                  name = "binary";
+                  request = "launch";
+                  completion = [
+                    {
+                      name = "binary";
+                      completion = "filename";
+                    }
+                  ];
+                  args = {
+                    program = "{0}";
+                  };
+                }
+              ];
+            };
+          }
         ];
 
         language-server = {
