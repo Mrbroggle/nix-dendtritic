@@ -88,14 +88,19 @@
           settings = {
             exec-once = [
               "systemctl --user start hyprpolkitagent"
-              "${pkgs.hyprpaper}"
-              "${pkgs.udiskie}"
-              "nm-applet"
-              "clipse -listen"
+              "uwsm-app ${pkgs.hyprpaper}"
+              "uwsm-app ${pkgs.udiskie}"
+              "uwsm-app nm-applet"
+              "uwsm-app clipse -listen"
               "[workspace 1 silent] ghostty"
+              "uwsm-app ${pkgs.tailscale-systray}/bin/tailscale-systray"
               "${pkgs.tailscale-systray}/bin/tailscale-systray"
               "systemctl --user start kanshi.service" # Hack because graphical target is always dead???
             ];
+
+            general = {
+              layout = "scrolling";
+            };
 
             plugin = {
               # hyprsplit = {
