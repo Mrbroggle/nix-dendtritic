@@ -55,6 +55,8 @@
         spicetify.enable = true;
         btop.enable = true;
         neovim.enable = false;
+        hyprpaper.enable = true;
+        hyprland.enable = true;
         waybar.enable = true;
         swaync.enable = true;
         ghostty.enable = true;

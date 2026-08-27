@@ -44,9 +44,4 @@
       ];
     };
   };
-  flake.homeModules.hyprland = {
-    wayland.windowManager.hyprland.settings.bind = [
-      ", xf86poweroff , exec, wlogout"
-    ];
-  };
 }
