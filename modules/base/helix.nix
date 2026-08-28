@@ -82,7 +82,7 @@
             formatter = {
               command = "clang-format";
               args = [
-                "--style={BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never}"
+                "--style={BasedOnStyle: LLVM}"
                 "--assume-filename=%{buffer_name}"
               ];
             };
@@ -114,7 +114,7 @@
             formatter = {
               command = "clang-format";
               args = [
-                "--style={BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never}"
+                "--style={BasedOnStyle: LLVM, IndentWidth: 8, TabWidth: 8, UseTab: Never, BreakBraces: Allman}"
                 "--assume-filename=%{buffer_name}"
               ];
             };

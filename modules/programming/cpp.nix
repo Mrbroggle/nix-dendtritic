@@ -10,5 +10,6 @@
       ncurses
     ];
     environment.extraOutputsToInstall = ["dev"];
+    services.rpcbind.enable = true;
   };
 }
