@@ -1,18 +1,22 @@
 {
-  flake.homeModules.wlogout = {pkgs, ...}: {
+  flake.homeModules.wlogout = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.wlogout = {
       enable = true;
       layout = [
         {
           "label" = "lock";
-          "action" = "hyprlock";
+          "action" = "${lib.getExe pkgs.hyprlock}";
           "text" = "Lock";
           "keybind" = "l";
         }
 
         {
           "label" = "logout";
-          "action" = "${pkgs.hyprshutdown}";
+          "action" = "${lib.getExe pkgs.hyprshutdown}";
           "text" = "Logout";
           "keybind" = "e";
         }
