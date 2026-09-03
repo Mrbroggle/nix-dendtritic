@@ -1,5 +1,5 @@
 {
-  flake.homeModules.wlogout = _: {
+  flake.homeModules.wlogout = {pkgs, ...}: {
     programs.wlogout = {
       enable = true;
       layout = [
@@ -12,7 +12,7 @@
 
         {
           "label" = "logout";
-          "action" = "hyprctl dispatch exit 0";
+          "action" = "${pkgs.hyprshutdown}";
           "text" = "Logout";
           "keybind" = "e";
         }
