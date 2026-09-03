@@ -25,7 +25,6 @@
         size = 24;
       };
 
-      autoEnable = true;
       targets.plymouth.enable = false;
 
       homeManagerIntegration.autoImport = true;

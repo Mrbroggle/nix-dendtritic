@@ -13,12 +13,6 @@
             enable = true;
           };
           theme = "sddm-astronaut-theme";
-          settings = {
-            Theme = {
-              CursorTheme = config.stylix.cursor.name;
-            };
-          };
-
           extraPackages = [
             pkgs.apple-cursor
           ];
