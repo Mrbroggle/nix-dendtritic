@@ -22,6 +22,7 @@
       networkmanagerapplet
       ghidra
       filezilla
+      claude-code
     ];
 
     services = {
