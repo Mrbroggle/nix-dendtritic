@@ -59,15 +59,6 @@
         waybar.enable = true;
         swaync.enable = true;
         ghostty.enable = true;
-        nixcord = {
-          enable = true;
-          extraCss = ''
-            :root {
-              --base00: #${osConfig.lib.stylix.colors.base01} !important;
-              --base01: #${osConfig.lib.stylix.colors.base00} !important;
-            }
-          '';
-        };
       };
     };
 

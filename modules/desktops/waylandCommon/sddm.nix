@@ -13,9 +13,9 @@
             enable = true;
           };
           theme = "sddm-astronaut-theme";
-          extraPackages = [
-            pkgs.apple-cursor
-          ];
+          # extraPackages = [
+          #   pkgs.apple-cursor
+          # ];
         };
       };
       logind.settings.Login = {
