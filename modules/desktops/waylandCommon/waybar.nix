@@ -32,7 +32,7 @@
               empty = "";
             };
             ## Hyprsplit workspaces stuff
-            on-click-window = "hyprctl dispatch 'hl.dsp.focus({workspace=\"{address}\"})'";
+            on-click-window = "hyprctl dispatch \"hl.dsp.focus({workspace = hl.get_window('address:{address}').workspace})\"";
             all-outputs = false;
             persistent-workspaces = {
               "eDP-1" = [
