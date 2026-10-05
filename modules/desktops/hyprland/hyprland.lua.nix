@@ -85,10 +85,6 @@
           focus_on_activate = true,
         },
 
-        scrolling = {
-          column_width = 0.67,
-        },
-
         xwayland = {
           force_zero_scaling = true,
         },
