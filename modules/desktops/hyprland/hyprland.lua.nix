@@ -201,7 +201,7 @@
         end
       end
 
-      hl.bind(mainMod .. " + SHIFT + left", hl.dsp.layout("colresize +conf"))
+      hl.bind(mainMod .. " + SHIFT + right", hl.dsp.layout("colresize +conf"))
       hl.bind(mainMod .. " + SHIFT + left", hl.dsp.layout("colresize -conf"))
 
       -- move / swap (scrolling layout)
