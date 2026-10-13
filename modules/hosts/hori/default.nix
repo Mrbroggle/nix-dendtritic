@@ -36,6 +36,7 @@ in {
         virtualisation
         cpp
         rust
+        gamedev
       ]
       ++ [
         {
