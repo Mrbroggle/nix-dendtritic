@@ -13,6 +13,11 @@
     ];
     environment.systemPackages = with pkgs; [
       mpv
+      libreoffice-qt
+      hunspell
+      hunspellDicts.en_AU
+      hyphenDicts.en_AU
+      jellyfin-mpv-shim
       celluloid
       gnome-network-displays
       gparted
